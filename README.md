@@ -1,12 +1,12 @@
 # Dependencies
 
-* [jvgrep](https://github.com/mattn/jvgrep/releases)
-* [Cica fonts](http://sv.btnb.jp/cica-font)
-* [Noto Sans CJK JP](https://www.google.com/get/noto/#/family/noto-sans-jpan)
+* [jvgrep](https://github.com/mattn/jvgrep/releases) for vim grep.
+* [Cica fonts](http://sv.btnb.jp/cica-font) for gvim.
+* [Noto Sans CJK JP](https://www.google.com/get/noto/#/family/noto-sans-jpan) for ggplot.
 
 ## for Windows
 
-* [DiffUtils](http://gnuwin32.sourceforge.net/packages/diffutils.htm)
+* [DiffUtils](http://gnuwin32.sourceforge.net/packages/diffutils.htm) for vim diff.
 
 ### if can not install fonts...
 
