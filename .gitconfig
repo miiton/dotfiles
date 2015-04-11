@@ -4,18 +4,20 @@
 [core]
 	excludesfile = /Users/t_minami/.gitignore_global
 	editor = /usr/bin/vim
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+[diff]
+    tool = mvim
+[merge]
+	ff = false
+    tool = mvim
+[difftool "mvim"]
+	cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
+[mergetool "mvim"]
+	cmd = mvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
 	trustExitCode = true
 [color]
 	ui = auto
 [alias]
 	s = status --short --branch
     l = log --date=iso --graph --all --pretty='%x09%ad %<(7)%Cblue%h%Creset %C(yellow)%cn%Creset %<(50,trunc)%s %Cred%d%>(20)%Cgreen%cr'
-[merge]
-	ff = false
 [push]
 	default = matching
