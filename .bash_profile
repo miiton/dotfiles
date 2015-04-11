@@ -19,6 +19,9 @@ export PATH=$PATH:~/bin
 export PATH=$PATH:/usr/local/mysql/bin
 export PATH=$PATH:~/Dropbox/bin
 export PATH=$PATH:/Applications/Julia-0.2.0.app/Contents/Resources/julia/bin
+export GOROOT=`go env GOROOT`
+export GOPATH=$HOME/.go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 export R_USER=$HOME
 

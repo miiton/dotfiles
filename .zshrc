@@ -186,5 +186,5 @@ export DOCKER_HOST=tcp://127.0.0.1:4243
 
 export GOROOT=`go env GOROOT`
 export GOPATH=$HOME/.go
-export PATH=$PATH:$GOROOT/bin;$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export PATH=$PATH:/Applications/MacVim.app/Contents/MacOS
