@@ -38,6 +38,7 @@ set scrolloff=8
 set undofile
 set undodir=~/.vimundo
 set grepprg=jvgrep
+set cmdheight=2
 
 " ============================================================================
 " Plugins
@@ -45,52 +46,39 @@ set grepprg=jvgrep
 "
 source $VIMRUNTIME/macros/matchit.vim
 
-set nocompatible
-filetype off
-
 if has('vim_starting')
     if &compatible
         set nocompatible
     endif
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    if has('win32') || has('win64')
+        set runtimepath+=~/vimfiles/bundle/neobundle.vim/
+    else 
+        set runtimepath+=~/.vim/bundle/neobundle.vim/
+    endif
 endif
 
-call neobundle#begin(expand('~/.vim/bundle'))
+if has('win32') || has('win64')
+    call neobundle#begin(expand('~/vimfiles/bundle'))
+else
+    call neobundle#begin(expand('~/.vim/bundle'))
+endif
 
-" Let NeoBundle manage NeoBundle
-" Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" originalrepos on github
+" -------------------------------------
+" Themes
+" -------------------------------------
 NeoBundle 'miiton/vim-hybrid'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle '29decibel/codeschool-vim-theme'
 NeoBundle 'jnurmine/Zenburn'
 NeoBundle 'sjl/badwolf'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'msanders/cocoa.vim'
-NeoBundle 'pekepeke/titanium-vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'motemen/git-vim'
-NeoBundle 'lambdalisue/vim-python-virtualenv'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'rhysd/clever-f.vim'
-NeoBundle 'fuenor/qfixhowm'
-NeoBundle 'thinca/vim-fontzoom'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'Align'
-NeoBundle 'koron/minimap-vim'
-NeoBundle 'morhetz/gruvbox'
 NeoBundle 'BusyBee'
-NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'morhetz/gruvbox'
 
+" -------------------------------------
+" Bundles
+" -------------------------------------
 NeoBundle 'Shougo/vimproc', {
             \ 'build': {
             \   'windows'   : 'make -f make_mingw32.mak',
@@ -98,6 +86,30 @@ NeoBundle 'Shougo/vimproc', {
             \   'mac'       : 'make -f make_mac.mak',
             \   'unix'      : 'make -f make_unix.mak',
             \ }}
+NeoBundle 'Align'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'fuenor/qfixhowm'
+NeoBundle 'gregsexton/gitv'
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'koron/minimap-vim'
+NeoBundle 'lambdalisue/vim-python-virtualenv'
+NeoBundle 'lilydjwg/colorizer'
+NeoBundle 'motemen/git-vim'
+NeoBundle 'msanders/cocoa.vim'
+NeoBundle 'osyo-manga/unite-qfixhowm'
+NeoBundle 'pekepeke/titanium-vim'
+NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'thinca/vim-fontzoom'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
+
 
 NeoBundleLazy 'vim-scripts/VOoM',{'autoload':{'commands':['Voom']}}
 NeoBundleLazy 'majutsushi/tagbar',{'autoload':{'commands':['Tagbar','TagbarToggle']}}
@@ -115,8 +127,8 @@ NeoBundleLazy 'hynek/vim-python-pep8-indent',{'autoload':{'filetypes':['python']
 NeoBundleLazy 'rcmdnk/vim-markdown',{'autoload':{'filetypes':['mkd','markdown','md']}}
 NeoBundleLazy 'miiton/vim-ps1','v5',{'autoload':{'filetypes':['ps1']}}
 NeoBundleLazy 'phaubos/vim-mql4',{'autoload':{'filetypes':['mql4']}}
-NeoBundle 'osyo-manga/unite-qfixhowm'
-NeoBundle 'lilydjwg/colorizer'
+" NeoBundleLazy 'google/vim-ft-go',{'autoload':{'filetypes':['go']}}
+NeoBundleLazy 'vim-jp/vim-go-extra',{'autoload':{'filetypes':['go']}}
 
 
 NeoBundleLazy 'Shougo/vimshell',{
@@ -130,9 +142,7 @@ NeoBundleLazy 'Shougo/vimshell',{
             \ }}
 
 call neobundle#end()
-" Required:
 filetype plugin indent on
-
 NeoBundleCheck
 
 " ============================================================================
@@ -217,11 +227,11 @@ omap g/ <Plug>(easymotion-tn)
 " QFixHowm
 " ============================================================================
 
-let howm_dir            = '~/Dropbox/howm'
-let howm_filename       = '~/Dropbox/howm/%Y/%m/%Y-%m-%d_%H%M%S.md'
+let howm_dir            = '~/Dropbox/vim/howm'
+let howm_filename       = '~/Dropbox/vim/howm/%Y/%m/%Y-%m-%d_%H%M%S.md'
 let howm_fileencoding   = 'utf-8'
 let howm_fileformat     = 'unix'
-let QFixMRU_Filename    = '~/Dropbox/howm/.qfixmru'
+let QFixMRU_Filename    = '~/Dropbox/vim/howm/.qfixmru'
 let QFixHowm_FileType   = 'markdown'
 let QFixHowm_Title      = '#'
 let QFixHowm_Autoformat = 0
@@ -301,7 +311,8 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
-let g:neosnippet#snippets_directory='~/.vim/snippets'
+let g:neosnippet#snippets_directory='~/Dropbox/vim/snippets'
+
 
 " ============================================================================
 " neocomplete
