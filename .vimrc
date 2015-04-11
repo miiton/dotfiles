@@ -118,6 +118,7 @@ NeoBundleLazy 'Shougo/neosnippet.vim', { 'autoload': {'insert': 1}}
 NeoBundleLazy 'Shougo/neosnippet-snippets', { 'autoload': {'insert': 1}}
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload': {'commands': ['GundoToggle']}}
 NeoBundleLazy 'mattn/emmet-vim', { 'autoload': {'filetypes': ['html']}}
+NeoBundleLazy 'mattn/sonictemplate-vim',{'autoload':{'commands':['Template']}}
 NeoBundleLazy 'JavaScript-syntax',{'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy '2072/PHP-Indenting-for-VIm', {'autoload':{'filetypes':['php']}}
 NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
@@ -412,3 +413,8 @@ if executable('ag')
     let g:unite_source_grep_default_opts = '--nogroup --nocolor'
     let g:unite_source_grep_recursive_opt = ''
 endif
+
+" ============================================================================
+" golang
+" ============================================================================
+exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
