@@ -39,6 +39,7 @@ set undofile
 set undodir=~/.vimundo
 set grepprg=jvgrep
 set cmdheight=2
+set splitright
 
 " ============================================================================
 " Plugins
@@ -208,6 +209,15 @@ let g:markdown_quote_syntax_filetypes = {
             \},
             \ "r" : {
             \   "start" : "r",
+            \},
+            \ "go" : {
+            \   "start" : "go",
+            \},
+            \ "vim" : {
+            \   "start" : "vim",
+            \},
+            \ "sh" : {
+            \   "start" : "sh",
             \},
             \}
 set completeopt=menuone
