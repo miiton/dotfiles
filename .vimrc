@@ -159,7 +159,7 @@ nmap <CR> :<C-u>call append(expand('.'), '')<CR>j
 nmap <silent> <Leader>P <Plug>ToggleProject
 nmap <silent> <Leader>p :Project<CR>
 nmap <F9> :VimFiler -split -explorer<CR>
-nmap <F5> :NeoSnippetEdit -split<CR>
+nmap <F5> :vsp \| NeoSnippetEdit<CR>
 nmap <F12> :Fontzoom +1<CR>
 nmap <S-F12> :Fontzoom -1<CR>
 nmap <C-F12> :Fontzoom!<CR>
