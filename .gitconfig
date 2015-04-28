@@ -1,23 +1,23 @@
 [user]
-	name = "miiton"
-	email = vo.gu.ba.miiton@gmail.com
+    name = "miiton"
+    email = vo.gu.ba.miiton@gmail.com
 [core]
-	excludesfile = /Users/t_minami/.gitignore_global
-	editor = /usr/bin/vim
+    excludesfile = $HOME/.gitignore_global
+    editor = /usr/bin/vim
 [diff]
     tool = mvim
-[merge]
-	ff = false
-    tool = mvim
 [difftool "mvim"]
-	cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
+    cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
 [mergetool "mvim"]
-	cmd = mvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
-	trustExitCode = true
+    cmd = mvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+    trustExitCode = true
+[merge]
+    ff = false
+    tool = mvim
 [color]
-	ui = auto
+    ui = auto
 [alias]
-	s = status --short --branch
-    l = log --date=iso --graph --all --pretty='%x09%ad %<(7)%Cblue%h%Creset %C(yellow)%cn%Creset %<(50,trunc)%s %Cred%d%>(20)%Cgreen%cr'
+    s = status --short --branch
+    l = log --date=iso --graph --all --pretty='%x09%ad %<(7)%C(blue)%h%C(reset) %C(yellow)%cn%C(reset) %<(50,trunc)%s %Cred%d%>(20)%Cgreen%cr%C(reset)'
 [push]
-	default = matching
+    default = simple

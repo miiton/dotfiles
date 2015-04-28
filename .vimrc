@@ -44,7 +44,7 @@ set splitright
 " ============================================================================
 " Plugins
 " ============================================================================
-"
+
 source $VIMRUNTIME/macros/matchit.vim
 
 if has('vim_starting')
@@ -428,3 +428,4 @@ endif
 " golang
 " ============================================================================
 exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+exe "set rtp+=".globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
