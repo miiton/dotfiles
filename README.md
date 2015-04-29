@@ -1,3 +1,21 @@
+# How to setup
+
+## Windows 
+
+```
+git clone https://github.com/miiton/dotfiles
+cd dotfiles
+init.bat
+```
+
+## Other
+
+```
+git clone https://github.com/miiton/dotfiles
+cd dotfiles
+bash ./init.sh
+```
+
 # Dependencies
 
 * [jvgrep](https://github.com/mattn/jvgrep/releases) for vim grep.

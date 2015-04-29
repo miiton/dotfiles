@@ -10,12 +10,12 @@
     cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
 [difftool]
     prompt = false
-[mergetool "mvim"]
-    cmd = mvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
-    trustExitCode = true
 [merge]
     ff = false
     tool = mvim
+[mergetool "mvim"]
+    cmd = mvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+    trustExitCode = true
 [color]
     ui = auto
 [alias]
