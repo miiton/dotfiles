@@ -2,10 +2,14 @@
     name = "miiton"
     email = "vo.gu.ba.miiton@gmail.com"
 [core]
-    excludesfile = /Users/t_minami/.gitignore_global
+    excludesfile = $HOME/.gitignore_global
     editor = /usr/bin/vim
 [diff]
     tool = mvim
+[difftool "mvim"]
+    cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
+[difftool]
+    prompt = false
 [merge]
     ff = false
     tool = mvim
@@ -18,6 +22,6 @@
     ui = auto
 [alias]
     s = status --short --branch
-    l = log --date=iso --graph --all --pretty='%x09%<(18,trunc)%ad %<(7)%C(cyan)%h%Creset %C(yellow)%<(17,trunc)%cn%Creset %<(50,trunc)%s %Cred%d%>(20)%C(reset) '
+    l = log --date=iso --graph --all --pretty='%x09%ad %<(7)%C(blue)%h%C(reset) %C(yellow)%cn%C(reset) %<(50,trunc)%s %Cred%d%>(20)%Cgreen%cr%C(reset)'
 [push]
     default = simple

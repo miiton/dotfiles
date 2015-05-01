@@ -39,11 +39,12 @@ set undofile
 set undodir=~/.vimundo
 set grepprg=jvgrep
 set cmdheight=2
+set splitright
 
 " ============================================================================
 " Plugins
 " ============================================================================
-"
+
 source $VIMRUNTIME/macros/matchit.vim
 
 if has('vim_starting')
@@ -158,7 +159,7 @@ nmap <CR> :<C-u>call append(expand('.'), '')<CR>j
 nmap <silent> <Leader>P <Plug>ToggleProject
 nmap <silent> <Leader>p :Project<CR>
 nmap <F9> :VimFiler -split -explorer<CR>
-nmap <F5> :NeoSnippetEdit -split<CR>
+nmap <F5> :vsp \| NeoSnippetEdit<CR>
 nmap <F12> :Fontzoom +1<CR>
 nmap <S-F12> :Fontzoom -1<CR>
 nmap <C-F12> :Fontzoom!<CR>
@@ -208,6 +209,15 @@ let g:markdown_quote_syntax_filetypes = {
             \},
             \ "r" : {
             \   "start" : "r",
+            \},
+            \ "go" : {
+            \   "start" : "go",
+            \},
+            \ "vim" : {
+            \   "start" : "vim",
+            \},
+            \ "sh" : {
+            \   "start" : "sh",
             \},
             \}
 set completeopt=menuone
@@ -418,3 +428,4 @@ endif
 " golang
 " ============================================================================
 exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+exe "set rtp+=".globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
