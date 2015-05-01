@@ -22,6 +22,6 @@
     ui = auto
 [alias]
     s = status --short --branch
-    l = log --date=iso --graph --all --pretty='%x09%ad %<(7)%C(blue)%h%C(reset) %C(yellow)%cn%C(reset) %<(50,trunc)%s %Cred%d%>(20)%Cgreen%cr%C(reset)'
+    l = log --date=iso --graph --all --pretty='%x09%<(18,trunc)%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%<(17,trunc)%cn%C(reset) %<(50,trunc)%s %Cred%d%>(20)%C(reset)'
 [push]
     default = simple
