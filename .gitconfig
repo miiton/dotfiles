@@ -1,6 +1,6 @@
 [user]
     name = "miiton"
-    email = vo.gu.ba.miiton@gmail.com
+    email = "vo.gu.ba.miiton@gmail.com"
 [core]
     excludesfile = $HOME/.gitignore_global
     editor = /usr/bin/vim
@@ -13,6 +13,8 @@
 [merge]
     ff = false
     tool = mvim
+[difftool "mvim"]
+    cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
 [mergetool "mvim"]
     cmd = mvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
     trustExitCode = true
@@ -20,6 +22,6 @@
     ui = auto
 [alias]
     s = status --short --branch
-    l = log --date=iso --graph --all --pretty='%x09%<(18,trunc)%ad %<(7)%C(cyan)%h%C(reset) %C(yellow)%cn%C(reset) %<(50,trunc)%s %Cred%d%>(20)%C(reset)'
+    l = log --date=iso --graph --all --pretty='%x09%<(18,trunc)%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%<(17,trunc)%cn%C(reset) %<(50,trunc)%s %Cred%d%>(20)%C(reset)'
 [push]
     default = simple
