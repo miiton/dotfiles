@@ -34,5 +34,5 @@ set printheader=%<%t%=\ %{&ff}\/%{&fileencoding}\ \|\ %N\ Page
 
 au InsertLeave * set imdisable
 au InsertEnter * set noimdisable
-colorscheme hybrid
+colorscheme jellybeans
 

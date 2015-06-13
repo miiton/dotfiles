@@ -76,6 +76,11 @@ NeoBundle 'jnurmine/Zenburn'
 NeoBundle 'sjl/badwolf'
 NeoBundle 'BusyBee'
 NeoBundle 'morhetz/gruvbox'
+NeoBundle 'jonathanfilip/vim-lucius'
+NeoBundle 'google/vim-colorscheme-primary'
+NeoBundle 'noahfrederick/vim-hemisu'
+NeoBundle 'Junza/Spink'
+NeoBundle 'croaker/mustang-vim'
 
 " -------------------------------------
 " Bundles
@@ -128,7 +133,7 @@ NeoBundleLazy 'nvie/vim-flake8',{'autoload':{'filetypes':['python']}}
 NeoBundleLazy 'hynek/vim-python-pep8-indent',{'autoload':{'filetypes':['python']}}
 NeoBundleLazy 'rcmdnk/vim-markdown',{'autoload':{'filetypes':['mkd','markdown','md']}}
 NeoBundleLazy 'miiton/vim-ps1','v5',{'autoload':{'filetypes':['ps1']}}
-NeoBundleLazy 'phaubos/vim-mql4',{'autoload':{'filetypes':['mql4']}}
+NeoBundleLazy 'vobornik/vim-mql4',{'autoload':{'filetypes':['mql4']}}
 " NeoBundleLazy 'google/vim-ft-go',{'autoload':{'filetypes':['go']}}
 NeoBundleLazy 'vim-jp/vim-go-extra',{'autoload':{'filetypes':['go']}}
 

@@ -1,7 +1,7 @@
 # .Rprofile
 require(utils)
 repos <- "http://cran.md.tsukuba.ac.jp/"
-pkgs <- c("ggplot2","ggthemes","scales","dplyr","tidyr","grid","Cairo")
+pkgs <- c("ggplot2","ggthemes","scales","dplyr","tidyr","grid","Cairo","TTR","RMySQL")
 installed_pkgs <- as.data.frame(installed.packages())
 for(p in pkgs) {
     if(nrow(installed_pkgs[installed_pkgs$Package == p,]) == 0) {
