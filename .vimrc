@@ -81,6 +81,10 @@ NeoBundle 'google/vim-colorscheme-primary'
 NeoBundle 'noahfrederick/vim-hemisu'
 NeoBundle 'Junza/Spink'
 NeoBundle 'croaker/mustang-vim'
+NeoBundle 'dylanaraps/crayon'
+NeoBundle 'xero/sourcerer.vim'
+NeoBundle 'zsoltf/vim-maui'
+NeoBundle 'kristijanhusak/vim-hybrid-material'
 
 " -------------------------------------
 " Bundles

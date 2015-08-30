@@ -12,8 +12,8 @@ if has('win32') || has('win64')
         set ambiwidth=auto
     endif
 elseif has('mac')
-    set guifont=Cica:h16
-    set printfont=Cica:h12
+    set guifont=Cica_Light:h16
+    set printfont=Cica_Light:h12
     set columns=180
     set lines=45
     set transparency=0
@@ -34,5 +34,6 @@ set printheader=%<%t%=\ %{&ff}\/%{&fileencoding}\ \|\ %N\ Page
 
 au InsertLeave * set imdisable
 au InsertEnter * set noimdisable
-colorscheme jellybeans
+colorscheme hybrid_material
+
 
