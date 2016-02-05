@@ -85,6 +85,7 @@ NeoBundle 'dylanaraps/crayon'
 NeoBundle 'xero/sourcerer.vim'
 NeoBundle 'zsoltf/vim-maui'
 NeoBundle 'kristijanhusak/vim-hybrid-material'
+NeoBundle 'atelierbram/vim-colors_duotones'
 
 " -------------------------------------
 " Bundles
@@ -119,6 +120,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'neilagabriel/vim-geeknote'
 
 
 NeoBundleLazy 'vim-scripts/VOoM',{'autoload':{'commands':['Voom']}}
@@ -127,7 +129,9 @@ NeoBundleLazy 'Shougo/neocomplete.vim', { 'autoload': {'insert': 1}}
 NeoBundleLazy 'Shougo/neosnippet.vim', { 'autoload': {'insert': 1}}
 NeoBundleLazy 'Shougo/neosnippet-snippets', { 'autoload': {'insert': 1}}
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload': {'commands': ['GundoToggle']}}
-NeoBundleLazy 'mattn/emmet-vim', { 'autoload': {'filetypes': ['html']}}
+NeoBundleLazy 'mattn/emmet-vim', { 'autoload': {'filetypes': ['html','htmlcheetah']}}
+NeoBundleLazy 'othree/html5.vim', {'autoload': {'filetypes': ['html', 'htmlcheetah']}}
+NeoBundleLazy 'chrisgillis/vim-bootstrap3-snippets', {'autoload': {'filetypes': ['html', 'htmlcheetah']}}
 NeoBundleLazy 'mattn/sonictemplate-vim',{'autoload':{'commands':['Template']}}
 NeoBundleLazy 'JavaScript-syntax',{'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy '2072/PHP-Indenting-for-VIm', {'autoload':{'filetypes':['php']}}
@@ -140,6 +144,8 @@ NeoBundleLazy 'miiton/vim-ps1','v5',{'autoload':{'filetypes':['ps1']}}
 NeoBundleLazy 'vobornik/vim-mql4',{'autoload':{'filetypes':['mql4']}}
 " NeoBundleLazy 'google/vim-ft-go',{'autoload':{'filetypes':['go']}}
 NeoBundleLazy 'vim-jp/vim-go-extra',{'autoload':{'filetypes':['go']}}
+NeoBundleLazy 'keith/swift.vim',{'autoload':{'filetypes':['swift']}}
+NeoBundleLazy 'cespare/vim-toml', {'autoload':{'filetypes':['toml','tml']}}
 
 
 NeoBundleLazy 'Shougo/vimshell',{
@@ -233,6 +239,9 @@ set completeopt=menuone
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:Align_xstrlen = 3
 
+let g:syntastic_mode_map = { 'mode': 'passive',
+    \ 'active_filetypes': ['go'] }
+let g:syntastic_go_checkers = ['go', 'golint']
 
 " ============================================================================
 " EasyMotion
@@ -434,7 +443,15 @@ if executable('ag')
 endif
 
 " ============================================================================
-" golang
+" Golang
 " ============================================================================
-exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-exe "set rtp+=".globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
+autocmd FileType go setlocal noexpandtab
+set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
+autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+
+" ============================================================================
+" Markdown
+" ============================================================================
+let g:vim_markdown_initial_foldlevel=3
+let g:vim_markdown_better_folding=1
+

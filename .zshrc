@@ -5,6 +5,8 @@
 ########################################
 # 環境変数
 export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
+export LANG=ja_JP.UTF-8
  
 fpath=(/usr/local/share/zsh-completions $fpath)
  
@@ -155,6 +157,7 @@ alias -g G='| grep'
 if which pbcopy >/dev/null 2>&1 ; then
     # Mac
     alias -g C='| pbcopy'
+    alias mvim='mvim --remote-tab-silent'
 elif which xsel >/dev/null 2>&1 ; then
     # Linux
     alias -g C='| xsel --input --clipboard'
@@ -185,7 +188,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 export DOCKER_HOST=tcp://127.0.0.1:4243
 
 export GOROOT=`go env GOROOT`
-export GOPATH=$HOME/.go
+export GOPATH=$HOME/Dropbox/dev/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export PATH=$PATH:/Applications/MacVim.app/Contents/MacOS
 
@@ -198,3 +201,6 @@ function zle-line-init zle-keymap-select {
 }
 
 set -o vi
+typeset -U name_of_the_variable
+source /usr/local/dev-env/ansible/mac_profile
+eval $(docker-machine env dev)
