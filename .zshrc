@@ -158,6 +158,7 @@ if which pbcopy >/dev/null 2>&1 ; then
     # Mac
     alias -g C='| pbcopy'
     alias mvim='mvim --remote-tab-silent'
+    alias vim='nvim'
 elif which xsel >/dev/null 2>&1 ; then
     # Linux
     alias -g C='| xsel --input --clipboard'
@@ -203,4 +204,27 @@ function zle-line-init zle-keymap-select {
 set -o vi
 typeset -U name_of_the_variable
 source /usr/local/dev-env/ansible/mac_profile
-eval $(docker-machine env dev)
+# docker-machine start dev > /dev/null 2>&1
+# eval $(docker-machine env dev)
+
+export XDG_CONFIG_HOME=~/.config
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+alias mutt="docker run -v ~/.mutt:/home/mutt -t -i fstab/mutt"
+export HOMEBREW_GITHUB_API_TOKEN=98dce9917add8e6a71271749ee3ad6a6b13cee63
+
+function get-vm {
+    ssh esxi << 'EOL' 2> /dev/null
+    vim-cmd vmsvc/getallvms
+EOL
+}
+
+function start-vm {
+    vmid=`ssh esxi "vim-cmd vmsvc/getallvms | grep ${1} | sed -r 's/([0-9]+)\s.*/\1/g'"`
+    ssh esxi "vim-cmd vmsvc/power.on ${vmid}"
+
+}

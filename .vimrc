@@ -179,16 +179,19 @@ nmap <F12> :Fontzoom +1<CR>
 nmap <S-F12> :Fontzoom -1<CR>
 nmap <C-F12> :Fontzoom!<CR>
 
-" ============================================================================
-" Key remaps
-" ============================================================================
-
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
+
+" for 3-way merge
+if &diff
+nmap <leader>1 :diffget LOCAL<CR>
+nmap <leader>2 :diffget BASE<CR>
+nmap <leader>3 :diffget REMOTE<CR>
+endif
 
 " ============================================================================
 " Debug Key Setting
@@ -217,6 +220,7 @@ endif
 autocmd FileType python setlocal foldmethod=indent
 autocmd FileType markdown setlocal shiftwidth=4
 autocmd FileType markdown setlocal tabstop=4
+autocmd FileType markdown AlignCtrl p0P0
 autocmd BufNewFile,BufRead *.json setlocal ft=none
 let g:markdown_quote_syntax_filetypes = {
             \ "ps1" : {

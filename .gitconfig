@@ -5,16 +5,17 @@
     excludesfile = $HOME/.gitignore_global
     editor = /usr/bin/vim
 [diff]
-    tool = mvim
-[difftool "mvim"]
-    cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
+    tool = nvim
 [difftool]
     prompt = false
+[difftool "nvim"]
+    cmd = nvim -f -d \"$LOCAL\" \"$REMOTE\"
 [merge]
     ff = false
-	tool = gvimdiff
-[difftool "mvim"]
-    cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
+    tool = nvim
+[mergetool "nvim"]
+    cmd = nvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+    trustExitCode = true
 [color]
     ui = auto
 [alias]
