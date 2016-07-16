@@ -87,15 +87,15 @@ on_ft =  ['html', 'htmlcheetah', 'gohtmltmpl']
 
 # Javascript
 [[plugins]]
-repo = 'mxw/vim-jsx'
-on_ft = ['javascript']
-
-[[plugins]]
-repo = 'othree/yajs.vim'
-on_ft = ['javascript']
-
-[[plugins]]
 repo = 'dannytranlx/vim-esformatter'
+on_ft = ['javascript']
+
+[[plugins]]
+repo = 'pangloss/vim-javascript'
+on_ft = ['javascript']
+
+[[plugins]]
+repo = 'mxw/vim-jsx'
 on_ft = ['javascript']
 
 # Markdown

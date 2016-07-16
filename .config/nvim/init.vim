@@ -240,8 +240,8 @@ let g:EditorConfig_core_mode = 'external_command'
 
 " ============================================================================
 " Javascript
-let g:jsx_ext_required = 0
 let g:esformatter_autosave = 1
+let g:javascript_plugin_jsdoc = 1
 "
 " End Javascript
 " ============================================================================
