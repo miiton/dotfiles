@@ -77,6 +77,10 @@ filetype plugin indent on
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 " Insert new line with <ENTER>
 nmap <CR> :<C-u>call append(expand('.'), '')<CR>j
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 " End Key maps
 " ============================================================================
 
@@ -141,8 +145,9 @@ let g:syntastic_check_on_wq = 0
 
 " let g:deoplete#omni#input_patterns.go = '\h\w\.\w*'
 let g:deoplete#sources#go#align_class = 1
-" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
 " let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+" let g:go_list_type = "quickfix"
 
 " End Golang settings
 " ============================================================================
@@ -172,16 +177,16 @@ let g:lightline = {
             \             [ 'fugitive', 'filename' ] ]
             \ },
             \ 'component_function': {
-            \   'fugitive': 'MyFugitive',
-            \   'readonly': 'MyReadonly',
-            \   'modified': 'MyModified',
-            \   'filename': 'MyFilename'
+            \   'fugitive': 'LightLineFugitive',
+            \   'readonly': 'LightLineReadonly',
+            \   'modified': 'LightLineModified',
+            \   'filename': 'LightLineFilename',
             \ },
-            \ 'separator': { 'left': '⮀', 'right': '⮂' },
-            \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+            \ 'separator': { 'left': '', 'right': '' },
+            \ 'subseparator': { 'left': '', 'right': '' }
             \ }
 
-function! MyModified()
+function! LightLineModified()
     if &filetype == "help"
         return ""
     elseif &modified
@@ -193,7 +198,7 @@ function! MyModified()
     endif
 endfunction
 
-function! MyReadonly()
+function! LightLineReadonly()
     if &filetype == "help"
         return ""
     elseif &readonly
@@ -203,19 +208,20 @@ function! MyReadonly()
     endif
 endfunction
 
-function! MyFugitive()
+function! LightLineFugitive()
     if exists("*fugitive#head")
         let _ = fugitive#head()
-        return strlen(_) ? '⭠ '._ : ''
+        return strlen(_) ? ''._ : ''
     endif
     return ''
 endfunction
 
-function! MyFilename()
-    return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+function! LightLineFilename()
+    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
                 \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-                \ ('' != MyModified() ? ' ' . MyModified() : '')
+                \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
+
 " End lightline
 " ============================================================================
 
@@ -226,10 +232,18 @@ let g:vim_json_syntax_conceal = 0
 " ============================================================================
 
 " ============================================================================
-" indentLine settings
+" EditorConfig
+let g:EditorConfig_exec_path = '/Users/t_minami/.pyenv/shims/editorconfig'
+let g:EditorConfig_core_mode = 'external_command'
+" End EditorConfig
+" ============================================================================
+
+" ============================================================================
+" Javascript
+let g:jsx_ext_required = 0
+let g:esformatter_autosave = 1
 "
-let g:indentLine_faster = 1
-" End indentLine
+" End Javascript
 " ============================================================================
 
 set background=dark

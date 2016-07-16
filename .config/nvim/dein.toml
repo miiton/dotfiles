@@ -1,3 +1,4 @@
+# Global plugins
 [[plugins]]
 repo = 'kristijanhusak/vim-hybrid-material'
 
@@ -32,7 +33,7 @@ repo = 'fuenor/qfixhowm'
 repo = 'osyo-manga/unite-qfixhowm'
 
 [[plugins]]
-repo = 'Yggdroot/indentLine'
+repo = 'junegunn/vim-easy-align'
 
 [[plugins]]
 repo = 'chrisbra/vim-diff-enhanced'
@@ -41,13 +42,28 @@ repo = 'chrisbra/vim-diff-enhanced'
 repo = 'majutsushi/tagbar'
 
 [[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
+# Lazy plugins
+## Insert mode
+[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 on_i = 1
 
 [[plugins]]
+repo = 'Shougo/neosnippet.vim'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+on_i = 1
+
+## Python
+[[plugins]]
 repo = 'zchee/deoplete-jedi'
 on_ft = ['python']
 
+## Go
 [[plugins]]
 repo = 'zchee/deoplete-go'
 on_ft = ['go']
@@ -56,6 +72,7 @@ on_ft = ['go']
 repo = 'fatih/vim-go'
 on_ft = ['go','gohtmltmpl']
 
+## HTML
 [[plugins]]
 repo = 'mattn/emmet-vim'
 on_ft =  ['html','htmlcheetah','gohtmltmpl']
@@ -68,18 +85,34 @@ on_ft =  ['html', 'htmlcheetah','gohtmltmpl']
 repo = 'chrisgillis/vim-bootstrap3-snippets'
 on_ft =  ['html', 'htmlcheetah', 'gohtmltmpl']
 
+# Javascript
 [[plugins]]
-repo = 'Shougo/neosnippet.vim'
-on_i = 1
+repo = 'mxw/vim-jsx'
+on_ft = ['javascript']
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-on_i = 1
+repo = 'othree/yajs.vim'
+on_ft = ['javascript']
 
+[[plugins]]
+repo = 'dannytranlx/vim-esformatter'
+on_ft = ['javascript']
+
+# Markdown
+[[plugins]]
+repo = 'kannokanno/previm'
+on_ft = ['markdown']
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+on_ft = ['markdown']
+
+## PowerShell
 [[plugins]]
 repo = 'miiton/vim-ps1'
 on_ft = ['ps1']
 
+## Config
 [[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = ['toml','tml']
@@ -91,15 +124,3 @@ on_ft = ['yaml']
 [[plugins]]
 repo = 'elzr/vim-json'
 on_ft = ['json']
-
-[[plugins]]
-repo = 'mxw/vim-jsx'
-on_ft = ['javascript']
-
-[[plugins]]
-repo = 'othree/yajs.vim'
-on_ft = ['javascript']
-
-[[plugins]]
-repo = 'pmsorhaindo/syntastic-local-eslint.vim'
-on_ft = ['javascript']
