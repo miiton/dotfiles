@@ -136,6 +136,7 @@ bindkey '^R' history-incremental-pattern-search-backward
 ########################################
 # エイリアス
  
+alias gl='git l | emojify'
 alias la='ls -a'
 alias ll='ls -l'
  
