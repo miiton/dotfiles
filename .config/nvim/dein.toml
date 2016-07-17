@@ -75,7 +75,7 @@ on_ft = ['go','gohtmltmpl']
 ## HTML
 [[plugins]]
 repo = 'mattn/emmet-vim'
-on_ft =  ['html','htmlcheetah','gohtmltmpl']
+on_ft =  ['html','htmlcheetah','gohtmltmpl', 'javascript']
 
 [[plugins]]
 repo = 'othree/html5.vim'
@@ -96,6 +96,10 @@ on_ft = ['javascript']
 
 [[plugins]]
 repo = 'mxw/vim-jsx'
+on_ft = ['javascript']
+
+[[plugins]]
+repo = 'mtscout6/syntastic-local-eslint.vim'
 on_ft = ['javascript']
 
 # Markdown
