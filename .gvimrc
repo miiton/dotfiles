@@ -12,8 +12,8 @@ if has('win32') || has('win64')
         set ambiwidth=auto
     endif
 elseif has('mac')
-    set guifont=Cica_Light:h16
-    set printfont=Cica_Light:h12
+    set guifont=CicaE:h16
+    set printfont=CicaE:h12
     set columns=180
     set lines=45
     set transparency=0
