@@ -3,7 +3,7 @@
     email = "vo.gu.ba.miiton@gmail.com"
 [core]
     excludesfile = $HOME/.gitignore_global
-    editor = /usr/bin/vim
+	editor = nvim
 [diff]
     tool = nvim
 [difftool]
@@ -20,12 +20,12 @@
     ui = auto
 [alias]
     s = status --short --branch
-    l = log -n 15 --date=iso --graph --all --pretty='%x09%<(18,trunc)%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%<(17,trunc)%cn%C(reset) %<(50,trunc)%s %Cred%d%>(20)%C(reset)'
+    l = log -n 15 --date=format:'%y.%m.%d %H:%M' --graph --all --pretty='%x09%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%<(17,trunc)%cn%C(reset) %<(50,trunc)%s %Cred%d%>(20)%C(reset)'
 [push]
     default = simple
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
