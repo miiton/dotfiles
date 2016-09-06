@@ -39,7 +39,7 @@ set cmdheight=2
 set splitright
 set completeopt=menuone,noinsert
 set breakindent
-
+set termguicolors
 
 " ============================================================================
 " dein.vim
@@ -101,20 +101,20 @@ endif
 let g:deoplete#enable_at_startup = 1
 " Use smartcase.
 " let g:deoplete#enable_smart_case = 1
-" 
+"
 " " <C-h>, <BS>: close popup and delete backword char.
 " inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 " inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
-" 
+"
 " " <CR>: close popup and save indent.
 " inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 " function! s:my_cr_function() abort
 "   return deoplete#mappings#close_popup() . "\<CR>"
 " endfunction
-" 
+"
 " " deoplete-go
 let g:deoplete#sources#go#align_class = 1
-" 
+"
 " let g:deoplete#omni#input_patterns = {}
 
 
