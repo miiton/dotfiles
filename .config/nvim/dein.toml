@@ -86,9 +86,9 @@ repo = 'chrisgillis/vim-bootstrap3-snippets'
 on_ft =  ['html', 'htmlcheetah', 'gohtmltmpl']
 
 # Javascript
-[[plugins]]
-repo = 'dannytranlx/vim-esformatter'
-on_ft = ['javascript']
+# [[plugins]]
+# repo = 'dannytranlx/vim-esformatter'
+# on_ft = ['javascript']
 
 [[plugins]]
 repo = 'pangloss/vim-javascript'

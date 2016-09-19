@@ -203,7 +203,6 @@ function zle-line-init zle-keymap-select {
 
 set -o vi
 typeset -U name_of_the_variable
-source /usr/local/dev-env/ansible/mac_profile
 
 export XDG_CONFIG_HOME=~/.config
 export NVIM_TUI_ENABLE_TRUE_COLOR=1

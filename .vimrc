@@ -1,8 +1,6 @@
 " ============================================================================
 " Common Settings
 " ============================================================================
-set background=dark
-colorscheme Tomorrow-Night-Eighties
 syntax on
 set number
 set nowrap
@@ -11,251 +9,151 @@ set shiftwidth=4
 set tabstop=4
 set expandtab
 set hlsearch
-set visualbell t_vb=
 set nobackup
+set visualbell t_vb=
 set nowritebackup
 set noswapfile
 set encoding=utf-8
 scriptencoding utf-8
 set fileencodings=ucs-bom,utf-8,cp932,utf-16,utf-16le,iso-2022-jp,euc-jp,default,latin
-set nocompatible
 set cursorline
 set cursorcolumn
 set autoread
-set virtualedit=block " 矩形選択のモード
+set virtualedit=block
 set formatoptions+=mM
-set shellslash        " Windowsでもパスを/で扱えるように
+set shellslash
 set laststatus=2
-set showtabline=2     " タブバーを常に表示
+set showtabline=2
 set matchpairs& matchpairs+=<:>
 set matchtime=3
 set relativenumber
 set list
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
-set foldmethod=syntax
-set foldlevel=5
+" set foldmethod=syntax
+" set foldlevel=5
 set scrolloff=8
 set undofile
 set undodir=~/.vimundo
 set grepprg=jvgrep
 set cmdheight=2
 set splitright
+set completeopt=menuone,noinsert
+set breakindent
+set termguicolors
+set ambiwidth=single
 
 " ============================================================================
-" Plugins
-" ============================================================================
+" dein.vim
 
-source $VIMRUNTIME/macros/matchit.vim
-
-if has('vim_starting')
-    if &compatible
-        set nocompatible
-    endif
-    if has('win32') || has('win64')
-        set runtimepath+=~/vimfiles/bundle/neobundle.vim/
-    else 
-        set runtimepath+=~/.vim/bundle/neobundle.vim/
-    endif
+if &compatible
+  set nocompatible
 endif
 
-if has('win32') || has('win64')
-    call neobundle#begin(expand('~/vimfiles/bundle'))
-else
-    call neobundle#begin(expand('~/.vim/bundle'))
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:dein_dir = s:cache_home . '/dein'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+if !isdirectory(s:dein_repo_dir)
+  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+endif
+let &runtimepath = s:dein_repo_dir .",". &runtimepath
+let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/.config/nvim/dein.toml'
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
+  call dein#load_toml(s:toml_file)
+  call dein#end()
+  call dein#save_state()
+endif
+if has('vim_starting') && dein#check_install()
+  call dein#install()
 endif
 
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" -------------------------------------
-" Themes
-" -------------------------------------
-NeoBundle 'miiton/vim-hybrid'
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle '29decibel/codeschool-vim-theme'
-NeoBundle 'jnurmine/Zenburn'
-NeoBundle 'sjl/badwolf'
-NeoBundle 'BusyBee'
-NeoBundle 'morhetz/gruvbox'
-NeoBundle 'jonathanfilip/vim-lucius'
-NeoBundle 'google/vim-colorscheme-primary'
-NeoBundle 'noahfrederick/vim-hemisu'
-NeoBundle 'Junza/Spink'
-NeoBundle 'croaker/mustang-vim'
-NeoBundle 'dylanaraps/crayon'
-NeoBundle 'xero/sourcerer.vim'
-NeoBundle 'zsoltf/vim-maui'
-NeoBundle 'kristijanhusak/vim-hybrid-material'
-NeoBundle 'atelierbram/vim-colors_duotones'
-
-" -------------------------------------
-" Bundles
-" -------------------------------------
-NeoBundle 'Shougo/vimproc', {
-            \ 'build': {
-            \   'windows'   : 'make -f make_mingw32.mak',
-            \   'cygwin'    : 'make -f make_cygwin.mak',
-            \   'mac'       : 'make -f make_mac.mak',
-            \   'unix'      : 'make -f make_unix.mak',
-            \ }}
-NeoBundle 'Align'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'fuenor/qfixhowm'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'koron/minimap-vim'
-NeoBundle 'lambdalisue/vim-python-virtualenv'
-NeoBundle 'lilydjwg/colorizer'
-NeoBundle 'motemen/git-vim'
-NeoBundle 'msanders/cocoa.vim'
-NeoBundle 'osyo-manga/unite-qfixhowm'
-NeoBundle 'pekepeke/titanium-vim'
-NeoBundle 'rhysd/clever-f.vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'thinca/vim-fontzoom'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'neilagabriel/vim-geeknote'
-
-
-NeoBundleLazy 'vim-scripts/VOoM',{'autoload':{'commands':['Voom']}}
-NeoBundleLazy 'majutsushi/tagbar',{'autoload':{'commands':['Tagbar','TagbarToggle']}}
-NeoBundleLazy 'Shougo/neocomplete.vim', { 'autoload': {'insert': 1}}
-NeoBundleLazy 'sjl/gundo.vim', { 'autoload': {'commands': ['GundoToggle']}}
-NeoBundleLazy 'mattn/emmet-vim', { 'autoload': {'filetypes': ['html','htmlcheetah']}}
-NeoBundleLazy 'othree/html5.vim', {'autoload': {'filetypes': ['html', 'htmlcheetah']}}
-NeoBundleLazy 'chrisgillis/vim-bootstrap3-snippets', {'autoload': {'filetypes': ['html', 'htmlcheetah']}}
-NeoBundleLazy 'mattn/sonictemplate-vim',{'autoload':{'commands':['Template']}}
-NeoBundleLazy 'JavaScript-syntax',{'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy '2072/PHP-Indenting-for-VIm', {'autoload':{'filetypes':['php']}}
-NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'kchmck/vim-coffee-script',{'autoload':{'filetypes':['coffee']}}
-NeoBundleLazy 'nvie/vim-flake8',{'autoload':{'filetypes':['python']}}
-NeoBundleLazy 'hynek/vim-python-pep8-indent',{'autoload':{'filetypes':['python']}}
-NeoBundleLazy 'rcmdnk/vim-markdown',{'autoload':{'filetypes':['mkd','markdown','md']}}
-NeoBundleLazy 'miiton/vim-ps1','v5',{'autoload':{'filetypes':['ps1']}}
-NeoBundleLazy 'vobornik/vim-mql4',{'autoload':{'filetypes':['mql4']}}
-" NeoBundleLazy 'google/vim-ft-go',{'autoload':{'filetypes':['go']}}
-NeoBundleLazy 'vim-jp/vim-go-extra',{'autoload':{'filetypes':['go']}}
-NeoBundleLazy 'keith/swift.vim',{'autoload':{'filetypes':['swift']}}
-NeoBundleLazy 'cespare/vim-toml', {'autoload':{'filetypes':['toml','tml']}}
-
-
-NeoBundleLazy 'Shougo/vimshell',{
-            \ 'depends' : 'Shougo/vimproc',
-            \ 'autoload' : {
-            \   'commands' : [{ 'name' : 'VimShell',
-            \                   'complete' : 'customlist,vimshell#complete'},
-            \                 'VimShellExecute', 'VimShellInteractive',
-            \                 'VimShellTerminal', 'VimShellPop'],
-            \   'mappings' : ['<Plug>(vimshell_']
-            \ }}
-
-call neobundle#end()
 filetype plugin indent on
-NeoBundleCheck
+
+" End dein.vim
+" ============================================================================
 
 " ============================================================================
 " Key maps
-" ============================================================================
 
-nnoremap <F4> :<C-u>setlocal relativenumber!<CR>
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
-nmap <F2> :Unite buffer file file_mru<CR>
-nmap <F3> :GundoToggle<CR>
+" Insert new line with <ENTER>
 nmap <CR> :<C-u>call append(expand('.'), '')<CR>j
-nmap <silent> <Leader>P <Plug>ToggleProject
-nmap <silent> <Leader>p :Project<CR>
-nmap <F9> :VimFiler -split -explorer<CR>
-nmap <F12> :Fontzoom +1<CR>
-nmap <S-F12> :Fontzoom -1<CR>
-nmap <C-F12> :Fontzoom!<CR>
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" End Key maps
+" ============================================================================
 
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
-
-" for 3-way merge
+" ============================================================================
+" enhanced diff : https://github.com/chrisbra/vim-diff-enhanced
 if &diff
-nmap <leader>1 :diffget LOCAL<CR>
-nmap <leader>2 :diffget BASE<CR>
-nmap <leader>3 :diffget REMOTE<CR>
+    let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
 endif
+" End enhanced diff
+" ============================================================================
+"
 
 " ============================================================================
-" Debug Key Setting
+" Deoplete settings
+" let g:python3_host_prog = '/home/t_minami/miniconda/envs/py3/bin/python'
+
+" Enable deoplete at startup
+let g:deoplete#enable_at_startup = 1
+" Use smartcase.
+" let g:deoplete#enable_smart_case = 1
+"
+" " <C-h>, <BS>: close popup and delete backword char.
+" inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
+"
+" " <CR>: close popup and save indent.
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function() abort
+"   return deoplete#mappings#close_popup() . "\<CR>"
+" endfunction
+"
+" " deoplete-go
+let g:deoplete#sources#go#align_class = 1
+"
+" let g:deoplete#omni#input_patterns = {}
+
+
+" End Deoplete settings
 " ============================================================================
 
-if has('win32') || has('win64')
-    au FileType python nmap <F8> :!timeit python %<CR>
-else
-    au FileType python nmap <F8> :!time python %<CR>
-endif
+" ============================================================================
+" syntastic settings
+
+let g:syntastic_markdown_checkers = ['textlint']
+let g:syntastic_javascript_checkers = ['eslint']
+" エラー行に sign を表示
+let g:syntastic_enable_signs = 1
+" location list を常に更新
+let g:syntastic_always_populate_loc_list = 0
+" location list を常に表示
+let g:syntastic_auto_loc_list = 0
+" ファイルを開いた時にチェックを実行する
+let g:syntastic_check_on_open = 1
+" :wq で終了する時もチェックする
+let g:syntastic_check_on_wq = 0
+
+" End syntastic settings
+" ============================================================================
 
 " ============================================================================
-" Startup
-" ============================================================================
-if getcwd() != $HOME
-    if filereadable(getcwd(). '/.vimprojects')
-        Project .vimprojects
-    endif
-endif
+" Golang settings
 
-" ============================================================================
-" My Customize
-" ============================================================================
+" let g:deoplete#omni#input_patterns.go = '\h\w\.\w*'
+let g:deoplete#sources#go#align_class = 1
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+" let g:go_list_type = "quickfix"
 
-:let g:proj_flags = "imstc"
-autocmd FileType python setlocal foldmethod=indent
-autocmd FileType markdown setlocal shiftwidth=4
-autocmd FileType markdown setlocal tabstop=4
-autocmd FileType markdown AlignCtrl p0P0
-autocmd BufNewFile,BufRead *.json setlocal ft=none
-let g:markdown_quote_syntax_filetypes = {
-            \ "ps1" : {
-            \   "start" : "ps1",
-            \},
-            \ "r" : {
-            \   "start" : "r",
-            \},
-            \ "go" : {
-            \   "start" : "go",
-            \},
-            \ "vim" : {
-            \   "start" : "vim",
-            \},
-            \ "sh" : {
-            \   "start" : "sh",
-            \},
-            \}
-set completeopt=menuone
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-let g:Align_xstrlen = 3
-
-let g:syntastic_mode_map = { 'mode': 'passive',
-    \ 'active_filetypes': ['go'] }
-let g:syntastic_go_checkers = ['go', 'golint']
-
+" End Golang settings
 " ============================================================================
-" EasyMotion
-" ============================================================================
-let g:EasyMotion_do_mapping = 0 "Disable default mappings
-nmap s <Plug>(easymotion-s2)
-nmap g/ <Plug>(easymotion-sn)
-xmap g/ <Plug>(easymotion-sn)
-omap g/ <Plug>(easymotion-tn)
-
 " ============================================================================
 " QFixHowm
-" ============================================================================
 
 let howm_dir            = '~/Dropbox/vim/howm'
 let howm_filename       = '~/Dropbox/vim/howm/%Y/%m/%Y-%m-%d_%H%M%S.md'
@@ -267,9 +165,11 @@ let QFixHowm_Title      = '#'
 let QFixHowm_Autoformat = 0
 let QFixHowm_Folding    = 1
 
+" End QFixHowm
+" ============================================================================
+
 " ============================================================================
 " lightline
-" ============================================================================
 
 let g:lightline = {
             \ 'colorscheme': 'jellybeans',
@@ -278,16 +178,16 @@ let g:lightline = {
             \             [ 'fugitive', 'filename' ] ]
             \ },
             \ 'component_function': {
-            \   'fugitive': 'MyFugitive',
-            \   'readonly': 'MyReadonly',
-            \   'modified': 'MyModified',
-            \   'filename': 'MyFilename'
+            \   'fugitive': 'LightLineFugitive',
+            \   'readonly': 'LightLineReadonly',
+            \   'modified': 'LightLineModified',
+            \   'filename': 'LightLineFilename',
             \ },
             \ 'separator': { 'left': '', 'right': '' },
             \ 'subseparator': { 'left': '', 'right': '' }
             \ }
 
-function! MyModified()
+function! LightLineModified()
     if &filetype == "help"
         return ""
     elseif &modified
@@ -299,7 +199,7 @@ function! MyModified()
     endif
 endfunction
 
-function! MyReadonly()
+function! LightLineReadonly()
     if &filetype == "help"
         return ""
     elseif &readonly
@@ -309,40 +209,44 @@ function! MyReadonly()
     endif
 endfunction
 
-function! MyFugitive()
+function! LightLineFugitive()
     if exists("*fugitive#head")
         let _ = fugitive#head()
-        return strlen(_) ? '⭠ '._ : ''
+        return strlen(_) ? ''._ : ''
     endif
     return ''
 endfunction
 
-function! MyFilename()
-    return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+function! LightLineFilename()
+    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
                 \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-                \ ('' != MyModified() ? ' ' . MyModified() : '')
+                \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
+" End lightline
 " ============================================================================
-" Unite
-" ============================================================================
-nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-if executable('ag')
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor'
-    let g:unite_source_grep_recursive_opt = ''
-endif
 
 " ============================================================================
-" Golang
+" JSON
+let g:vim_json_syntax_conceal = 0
+" End JSON
 " ============================================================================
-autocmd FileType go setlocal noexpandtab
-set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
-autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 
 " ============================================================================
-" Markdown
+" EditorConfig
+let g:EditorConfig_exec_path = '/Users/t_minami/.pyenv/shims/editorconfig'
+let g:EditorConfig_core_mode = 'external_command'
+" End EditorConfig
 " ============================================================================
-let g:vim_markdown_initial_foldlevel=3
-let g:vim_markdown_better_folding=1
+
+" ============================================================================
+" Javascript
+let g:esformatter_autosave = 1
+let g:javascript_plugin_jsdoc = 1
+"
+" End Javascript
+" ============================================================================
+
+set background=dark
+colorscheme hybrid_material
 
