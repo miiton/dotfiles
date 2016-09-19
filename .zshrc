@@ -158,8 +158,6 @@ alias -g G='| grep'
 if which pbcopy >/dev/null 2>&1 ; then
     # Mac
     alias -g C='| pbcopy'
-    alias mvim='mvim --remote-tab-silent'
-    alias vim='nvim'
 elif which xsel >/dev/null 2>&1 ; then
     # Linux
     alias -g C='| xsel --input --clipboard'
@@ -177,9 +175,13 @@ case ${OSTYPE} in
         #Mac用の設定
         export CLICOLOR=1
         alias ls='ls -G -F'
+        alias mvim='mvim --remote-tab-silent'
+        alias vim='nvim'
         ;;
     linux*)
         #Linux用の設定
+        alias ls='ls -G -F --color'
+        alias vim='nvim'
         ;;
 esac
 
