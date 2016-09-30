@@ -177,6 +177,7 @@ case ${OSTYPE} in
         alias ls='ls -G -F'
         alias mvim='mvim --remote-tab-silent'
         alias vim='nvim'
+        alias ssh='~/Dropbox/Apps/iTerm2/ssh.sh'
         ;;
     linux*)
         #Linux用の設定
