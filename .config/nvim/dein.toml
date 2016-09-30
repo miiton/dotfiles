@@ -3,10 +3,19 @@
 repo = 'kristijanhusak/vim-hybrid-material'
 
 [[plugins]]
-repo = 'Shougo/neosnippet.vim'
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
+repo = 'Shougo/vimproc.vim'
+hook_post_update = '''
+  if dein#util#_is_windows()
+    let cmd = 'tools\\update-dll-mingw'
+  elseif dein#util#_is_cygwin()
+    let cmd = 'make -f make_cygwin.mak'
+  elseif executable('gmake')
+    let cmd = 'gmake'
+  else
+    let cmd = 'make'
+  endif
+  let g:dein#plugin.build = cmd
+'''
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
@@ -44,19 +53,18 @@ repo = 'majutsushi/tagbar'
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
 # Lazy plugins
 ## Insert mode
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 on_i = 1
 
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-on_i = 1
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-on_i = 1
 
 ## Python
 [[plugins]]
@@ -86,9 +94,6 @@ repo = 'chrisgillis/vim-bootstrap3-snippets'
 on_ft =  ['html', 'htmlcheetah', 'gohtmltmpl']
 
 # Javascript
-# [[plugins]]
-# repo = 'dannytranlx/vim-esformatter'
-# on_ft = ['javascript']
 
 [[plugins]]
 repo = 'pangloss/vim-javascript'
@@ -101,6 +106,18 @@ on_ft = ['javascript']
 [[plugins]]
 repo = 'mtscout6/syntastic-local-eslint.vim'
 on_ft = ['javascript']
+
+[[plugins]]
+repo = 'carlitux/deoplete-ternjs'
+on_ft = ['javascript']
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = ['typescript']
+
+[[plugins]]
+repo = 'Quramy/tsuquyomi'
+on_ft = ['typescript']
 
 # Markdown
 [[plugins]]
@@ -128,8 +145,3 @@ on_ft = ['yaml']
 [[plugins]]
 repo = 'elzr/vim-json'
 on_ft = ['json']
-
-## CSV
-[[plugins]]
-repo = 'chrisbra/csv.vim'
-on_ft = ['csv']
