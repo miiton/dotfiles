@@ -41,6 +41,9 @@ set completeopt=menuone,noinsert
 set breakindent
 set termguicolors
 set ambiwidth=single
+set shell=/bin/bash " http://this.aereal.org/entry/2014/02/02/002254
+
+" set pythonthreedll=/usr/local/Cellar/python3/3.6.0/Frameworks/Python.framework/Versions/3.6/Python
 
 " ============================================================================
 " dein.vim
@@ -56,7 +59,7 @@ if !isdirectory(s:dein_repo_dir)
   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
 let &runtimepath = s:dein_repo_dir .",". &runtimepath
-let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/.config/nvim/dein.toml'
+let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/.vim/dein.toml'
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
   call dein#load_toml(s:toml_file)
@@ -70,6 +73,72 @@ endif
 filetype plugin indent on
 
 " End dein.vim
+" ============================================================================
+
+" ============================================================================
+" neocomplete
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" End neocomplete
 " ============================================================================
 
 " ============================================================================
@@ -95,60 +164,38 @@ endif
 "
 
 " ============================================================================
-" Deoplete settings
-" let g:python3_host_prog = '/home/t_minami/miniconda/envs/py3/bin/python'
-
-" Enable deoplete at startup
-let g:deoplete#enable_at_startup = 1
-" Use smartcase.
-" let g:deoplete#enable_smart_case = 1
-"
-" " <C-h>, <BS>: close popup and delete backword char.
-" inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-" inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
-"
-" " <CR>: close popup and save indent.
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-" function! s:my_cr_function() abort
-"   return deoplete#mappings#close_popup() . "\<CR>"
-" endfunction
-"
-" " deoplete-go
-let g:deoplete#sources#go#align_class = 1
-"
-" let g:deoplete#omni#input_patterns = {}
-
-
-" End Deoplete settings
+" ternjs
+let g:tern_request_timeout = 1
+let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
+" End ternjs settings
 " ============================================================================
 
 " ============================================================================
-" syntastic settings
-
-let g:syntastic_markdown_checkers = ['textlint']
-let g:syntastic_javascript_checkers = ['eslint']
-" エラー行に sign を表示
-let g:syntastic_enable_signs = 1
-" location list を常に更新
-let g:syntastic_always_populate_loc_list = 0
-" location list を常に表示
-let g:syntastic_auto_loc_list = 0
-" ファイルを開いた時にチェックを実行する
-let g:syntastic_check_on_open = 1
-" :wq で終了する時もチェックする
-let g:syntastic_check_on_wq = 0
-
-" End syntastic settings
+" neomake settings
+autocmd! BufWritePost * Neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_error_sign = {'text': '>>', 'texthl': 'Error'}
+let g:neomake_warning_sign = {'text': '>>',  'texthl': 'Todo'}
+let g:neomake_go_enabled_makers = ['go', 'golint', 'govet']
+let g:neomake_typescript_enabled_makers = ['tslint']
+" End neomake settings
 " ============================================================================
 
 " ============================================================================
 " Golang settings
 
-" let g:deoplete#omni#input_patterns.go = '\h\w\.\w*'
-let g:deoplete#sources#go#align_class = 1
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'go']
-" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-" let g:go_list_type = "quickfix"
+let g:go_list_type = "quickfix"
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+autocmd FileType go :match goErr /\<err\>/
+autocmd FileType gohtmltmpl let b:match_words = '<:>,<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
 
 " End Golang settings
 " ============================================================================
@@ -203,7 +250,7 @@ function! LightLineReadonly()
     if &filetype == "help"
         return ""
     elseif &readonly
-        return "⭤"
+        return ""
     else
         return ""
     endif
@@ -234,7 +281,7 @@ let g:vim_json_syntax_conceal = 0
 
 " ============================================================================
 " EditorConfig
-let g:EditorConfig_exec_path = '/Users/t_minami/.pyenv/shims/editorconfig'
+let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 let g:EditorConfig_core_mode = 'external_command'
 " End EditorConfig
 " ============================================================================
@@ -243,10 +290,19 @@ let g:EditorConfig_core_mode = 'external_command'
 " Javascript
 let g:esformatter_autosave = 1
 let g:javascript_plugin_jsdoc = 1
+
+let g:user_emmet_settings = {
+\  'javascript.jsx' : {
+\      'extends' : 'jsx',
+\  },
+\}
 "
 " End Javascript
 " ============================================================================
 
 set background=dark
-colorscheme hybrid_material
+let g:hybrid_custom_term_colors = 1
+let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
+hi link goSpecialString Character
+colorscheme hybrid
 

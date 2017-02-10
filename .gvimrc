@@ -4,8 +4,8 @@ set guioptions-=T "メニューバーを非表示
 set guioptions-=r "右スクロールバーを非表示
 set guioptions-=e "タブバーをテキストモードに
 if has('win32') || has('win64')
-    set guifont=Cica:h11
-    set printfont=Cica:h8
+    set guifont=CicaE:h11
+    set printfont=CicaE:h8
     set columns=180
     set lines=50
     if has('kaoriya')
@@ -34,6 +34,6 @@ set printheader=%<%t%=\ %{&ff}\/%{&fileencoding}\ \|\ %N\ Page
 
 au InsertLeave * set imdisable
 au InsertEnter * set noimdisable
-colorscheme hybrid_material
 
 
+colorscheme hybrid
