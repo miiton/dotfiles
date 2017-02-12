@@ -1,0 +1,50 @@
+root = true
+
+[*]
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[**.go]
+charset = utf-8
+indent_style = tab
+indent_size = 4
+
+[**.php]
+charset = utf-8
+indent_style = space
+indent_size = 2
+
+[**.{js,ts,jsx,tsx}]
+charset = utf-8
+e4x = true
+indent_style = space
+indent_size = 2
+
+[**.{css,scss,less}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+
+[**.html]
+charset = utf-8
+indent_style = space
+indent_size = 2
+
+[**.yml]
+charset = utf-8
+indent_style = space
+indent_size = 2
+
+[**.json]
+charset = utf-8
+indent_style = space
+indent_size = 2
+
+[**.{md, mkd, markdown}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+
+[**.{ps1, bat, cmd, reg}]
+end_of_line = crlf
