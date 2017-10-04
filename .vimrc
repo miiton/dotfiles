@@ -42,6 +42,7 @@ set breakindent
 set termguicolors
 set ambiwidth=single
 set shell=/bin/bash " http://this.aereal.org/entry/2014/02/02/002254
+set splitbelow
 
 " set pythonthreedll=/usr/local/Cellar/python3/3.6.0/Frameworks/Python.framework/Versions/3.6/Python
 
@@ -146,7 +147,7 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 " Insert new line with <ENTER>
-nmap <CR> :<C-u>call append(expand('.'), '')<CR>j
+"nmap <CR> :<C-u>call append(expand('.'), '')<CR>j
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
@@ -193,6 +194,7 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_snippet_case_type = "camelcase"
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
 autocmd FileType gohtmltmpl let b:match_words = '<:>,<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
@@ -295,11 +297,112 @@ let g:user_emmet_settings = {
 \  'javascript.jsx' : {
 \      'extends' : 'jsx',
 \  },
+\  'javascript' : {
+\      'extends' : 'jsx',
+\  },
 \}
+let g:flow#autoclose = 1
+let g:jsx_ext_required = 0
+autocmd BufWritePre *.js Neoformat
+autocmd BufWritePre *.jsx Neoformat
+autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow
+autocmd BufWritePre *.ts Neoformat
+autocmd BufWritePre *.tsx Neoformat
+autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript
+" Use formatprg when available
+let g:neoformat_try_formatprg = 1
 "
 " End Javascript
 " ============================================================================
 
+" ============================================================================
+" Neosnippet
+
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+let g:neosnippet#snippets_directory='~/Dropbox/dev/snippets'
+
+nmap <C-s> :NeoSnippetEdit -split -vertical<CR>
+
+" End Neosnippet
+" ============================================================================
+"
+
+" ============================================================================
+" CtrlP
+
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_use_migemo = 1
+let g:ctrlp_custom_ignore = {
+\ 'dir':  '\v[\/](\.(git|hg|svn)|node_modules)$'
+\ }
+
+
+" End CtrlP
+" ============================================================================
+
+" ============================================================================
+" NERDTree
+
+nmap <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeShowBookmarks=1
+
+" End NERDTree
+" ============================================================================
+
+" ============================================================================
+" CamelMotion
+
+nmap <silent> w <Plug>CamelCaseMotion_w
+nmap <silent> b <Plug>CamelCaseMotion_b
+nmap <silent> e <Plug>CamelCaseMotion_e
+nmap <silent> ge <Plug>CamelCaseMotion_ge
+
+
+" End CamelMotion
+" ============================================================================
+
+
+" ============================================================================
+" Markdown
+
+autocmd FileType go :set conceallevel=0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
+let g:previm_enable_realtime = 1
+let g:previm_custom_css_path = '~/.config/previm/styles.css'
+
+" End Markdown
+" ============================================================================
+
+" Flow
+" ============================================================================
+let g:flow#autoclose = 1
+let g:flow#timeout = 10
+
+" ============================================================================
+
+let g:tsuquyomi_use_vimproc=1
 set background=dark
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.

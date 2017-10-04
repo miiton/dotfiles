@@ -1,8 +1,5 @@
 # Global plugins
 [[plugins]]
-repo = 'kristijanhusak/vim-hybrid-material'
-
-[[plugins]]
 repo = 'Shougo/vimproc.vim'
 hook_post_update = '''
   if dein#util#_is_windows()
@@ -65,7 +62,17 @@ repo = 'Shougo/neosnippet-snippets'
 [[plugins]]
 repo = 'tpope/vim-obsession'
 
+[[plugins]]
+repo ='scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'kana/vim-tabpagecd'
+
+[[plugins]]
+repo = 'bkad/CamelCaseMotion'
+
 # Lazy plugins
+
 ## Insert mode
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
@@ -89,7 +96,7 @@ on_ft = ['go','gohtmltmpl']
 ## HTML
 [[plugins]]
 repo = 'mattn/emmet-vim'
-on_ft =  ['html','htmlcheetah','gohtmltmpl', 'javascript','markdown']
+on_ft =  ['html', 'htmlcheetah', 'gohtmltmpl', 'javascript', 'markdown']
 
 [[plugins]]
 repo = 'othree/html5.vim'
@@ -114,10 +121,18 @@ repo = 'benjie/neomake-local-eslint.vim'
 on_ft = ['javascript']
 
 [[plugins]]
-repo = 'carlitux/deoplete-ternjs'
+repo = 'flowtype/vim-flow'
 on_ft = ['javascript']
 hook_post_update = '''
-  let cmd = 'npm install -g tern'
+  let cmd = 'npm install -g flow-bin'
+  let g:dein#plugin.build = cmd
+'''
+
+[[plugins]]
+repo = 'ternjs/tern_for_vim'
+on_ft = ['javascript']
+hook_post_update = '''
+  let cmd = 'yarn install'
   let g:dein#plugin.build = cmd
 '''
 
@@ -133,6 +148,20 @@ hook_post_update = '''
   let g:dein#plugin.build = cmd
 '''
 
+[[plugins]]
+repo = 'fleischie/vim-styled-components'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'sbdchd/neoformat'
+on_ft = ['javascript', 'javascript.jsx']
+
+# CSS
+
+[[plugins]]
+repo = 'hail2u/vim-css3-syntax.git'
+on_ft = ['css', 'scss', 'javascript', 'javascript.jsx']
+
 # Markdown
 [[plugins]]
 repo = 'kannokanno/previm'
@@ -140,6 +169,10 @@ on_ft = ['markdown']
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
+on_ft = ['markdown']
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
 on_ft = ['markdown']
 
 ## PowerShell
