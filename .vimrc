@@ -40,7 +40,7 @@ set splitright
 set completeopt=menuone,noinsert
 set breakindent
 set termguicolors
-set ambiwidth=single
+set ambiwidth=double
 set shell=/bin/bash " http://this.aereal.org/entry/2014/02/02/002254
 set splitbelow
 
@@ -231,11 +231,15 @@ let g:lightline = {
             \   'readonly': 'LightLineReadonly',
             \   'modified': 'LightLineModified',
             \   'filename': 'LightLineFilename',
+            \   'filetype': 'LightLineFiletype',
+            \   'fileformat': 'LightLineFileformat',
             \ },
             \ 'separator': { 'left': '', 'right': '' },
             \ 'subseparator': { 'left': '', 'right': '' }
             \ }
 
+"           \ 'separator': { 'left': '', 'right': '' },
+"           \ 'subseparator': { 'left': '', 'right': '' }
 function! LightLineModified()
     if &filetype == "help"
         return ""
@@ -270,6 +274,14 @@ function! LightLineFilename()
     return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
                 \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
                 \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+function! LightLineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! LightLineFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 " End lightline
@@ -366,6 +378,9 @@ let g:ctrlp_custom_ignore = {
 
 nmap <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeShowBookmarks=1
+let NERDTreeShowHidden=1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
 
 " End NERDTree
 " ============================================================================
@@ -402,6 +417,8 @@ let g:flow#timeout = 10
 
 " ============================================================================
 
+
+let g:indentLine_char = '⎸'
 let g:tsuquyomi_use_vimproc=1
 set background=dark
 let g:hybrid_custom_term_colors = 1
