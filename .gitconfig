@@ -1,33 +1,44 @@
 [user]
-    name = "miiton"
-    email = "vo.gu.ba.miiton@gmail.com"
+	name = miiton
+	email = 468745+miiton@users.noreply.github.com
 [core]
-    excludesfile = $HOME/.gitignore_global
-	editor = nvim
+	excludesfile = /Users/tmnm/.gitignore_global
+	editor = /Applications/MacVim.app/Contents/bin/mvim -f
 [diff]
-    tool = nvim
+    tool = mvim
 [difftool]
     prompt = false
-[difftool "nvim"]
-    cmd = nvim -f -d \"$LOCAL\" \"$REMOTE\"
+[difftool "mvim"]
+	cmd = /Applications/MacVim.app/Contents/bin/mvim -f -d \"$LOCAL\" \"$REMOTE\"
 [merge]
     ff = false
-    tool = nvim
-[mergetool "nvim"]
-    cmd = nvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+	tool = mvim
+[mergetool "mvim"]
+	cmd = /Applications/MacVim.app/Contents/bin/mvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
     trustExitCode = true
 [color]
     ui = auto
 [alias]
     s = status --short --branch
     l = log -n 15 --date=format:'%Y-%m-%d %H:%M' --graph --all --pretty='%x09%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%cn%C(reset) %s %Cred%d%>(20)%C(reset)'
+    ln = log -n 15 --date=format:'%Y-%m-%d %H:%M' --graph --all --pretty='%x09%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%cn%C(reset) %s %Cred%d%>(20)%C(reset)' --no-merges
+    cp = cherry-pick -x
 [push]
     default = simple
+[commit]
+	template = ~/.commit_template
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
-[commit]
-	template = ~/.commit_template
+[gpg]
+	program = gpg2
+[secrets]
+	providers = git secrets --aws-provider
+	patterns = [A-Z0-9]{20}
+	patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+	patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+	allowed = AKIAIOSFODNN7EXAMPLE
+	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY

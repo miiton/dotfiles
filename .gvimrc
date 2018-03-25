@@ -12,12 +12,14 @@ if has('win32') || has('win64')
         set ambiwidth=auto
     endif
 elseif has('mac')
-    set guifont=CicaE:h16
-    set printfont=CicaE:h12
-    set columns=180
-    set lines=45
+    set guifont=Cica:h16
+    set printfont=Cica:h12
+    winpos 0 0
+    set columns=1000
+    set lines=100
     set transparency=0
     set fuoptions=maxvert,maxhorz
+    set ambiwidth=double
     "au GUIEnter * set fullscreen
 endif
 
@@ -36,4 +38,5 @@ au InsertLeave * set imdisable
 au InsertEnter * set noimdisable
 
 
+let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
 colorscheme hybrid

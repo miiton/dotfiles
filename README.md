@@ -1,41 +1,23 @@
 # How to setup
 
-## Windows 
+## fish
 
-```
-git clone https://github.com/miiton/dotfiles
-cd dotfiles
-init.bat
-```
-
-## Other
-
-```
-git clone https://github.com/miiton/dotfiles
-cd dotfiles
-bash ./init.sh
+```sh
+brew install fish
+echo /usr/local/bin/fish | sudo tee -a /etc/shells
+chsh -s /usr/local/bin/fish
 ```
 
-# Dependencies
+install [jorgebucaran/fisher: A package manager for the fish shell](https://github.com/jorgebucaran/fisher)
 
-* [jvgrep](https://github.com/mattn/jvgrep/releases) for vim grep.
-* [Cica fonts](http://sv.btnb.jp/cica-font) for gvim.
-* [Noto Sans CJK JP](https://www.google.com/get/noto/#/family/noto-sans-jpan) for ggplot.
+## git-secrets
 
-## for Windows
-
-* [DiffUtils](http://gnuwin32.sourceforge.net/packages/diffutils.htm) for vim diff.
-
-### if can not install fonts...
-
-```vim
-" .gvimrc
-guifont=Consolas:h9
-guifontwide=MS_Gothic
-printfont=Consolas:h9
+```sh
+brew install git-secrets
+git secrets --register-aws --global
 ```
 
-# R ggplot sample
+## R ggplot sample
 
 ```r
  ggplot(diamonds,aes(x=carat,y=price,colour=cut)) +

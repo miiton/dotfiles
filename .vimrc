@@ -77,69 +77,10 @@ filetype plugin indent on
 " ============================================================================
 
 " ============================================================================
-" neocomplete
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" End neocomplete
+" deoplete
+let g:deoplete#enable_at_startup = 1
+"
+" End deoplete
 " ============================================================================
 
 " ============================================================================
@@ -172,17 +113,6 @@ let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on
 " ============================================================================
 
 " ============================================================================
-" neomake settings
-autocmd! BufWritePost * Neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_error_sign = {'text': '>>', 'texthl': 'Error'}
-let g:neomake_warning_sign = {'text': '>>',  'texthl': 'Todo'}
-let g:neomake_go_enabled_makers = ['go', 'golint', 'govet']
-let g:neomake_typescript_enabled_makers = ['tslint']
-" End neomake settings
-" ============================================================================
-
-" ============================================================================
 " Golang settings
 
 let g:go_list_type = "quickfix"
@@ -198,6 +128,8 @@ let g:go_snippet_case_type = "camelcase"
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
 autocmd FileType gohtmltmpl let b:match_words = '<:>,<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
+let g:go_metalinter_enabled = ['vet', 'golint']
+let g:go_metalinter_disabled = ['errcheck']
 
 " End Golang settings
 " ============================================================================
@@ -224,10 +156,9 @@ let g:lightline = {
             \ 'colorscheme': 'jellybeans',
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'fugitive', 'filename' ] ]
+            \             [ 'filename' ] ]
             \ },
             \ 'component_function': {
-            \   'fugitive': 'LightLineFugitive',
             \   'readonly': 'LightLineReadonly',
             \   'modified': 'LightLineModified',
             \   'filename': 'LightLineFilename',
@@ -312,6 +243,12 @@ let g:user_emmet_settings = {
 \  'javascript' : {
 \      'extends' : 'jsx',
 \  },
+\  'typescript.tsx' : {
+\      'extends' : 'jsx',
+\  },
+\  'typescript' : {
+\      'extends' : 'jsx',
+\  },
 \}
 let g:flow#autoclose = 1
 let g:jsx_ext_required = 0
@@ -321,8 +258,13 @@ autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow
 autocmd BufWritePre *.ts Neoformat
 autocmd BufWritePre *.tsx Neoformat
 autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript
+autocmd BufWritePre *.json Neoformat
+autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json
 " Use formatprg when available
 let g:neoformat_try_formatprg = 1
+let g:tsuquyomi_single_quote_import = 1
+let g:tsuquyomi_semicolon_import = 0
+nmap <C-i> <Plug>(TsuquyomiImport)<CR>
 "
 " End Javascript
 " ============================================================================
@@ -357,11 +299,24 @@ nmap <C-s> :NeoSnippetEdit -split -vertical<CR>
 
 " End Neosnippet
 " ============================================================================
-"
+
+
+" ============================================================================
+" DevIcons
+
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = ''
+let g:NERDTreeExtensionHighlightColor = {}
+let g:NERDTreeExtensionHighlightColor['vue'] = "41B883"
+let g:NERDTreeExtensionHighlightColor['ts'] = "007ACC"
+let g:NERDTreeExtensionHighlightColor['tsx'] = "61dafb"
+let g:NERDTreeExtensionHighlightColor['jsx'] = "61dafb"
+
+" End DevIcons
+" ============================================================================
 
 " ============================================================================
 " CtrlP
-
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_use_migemo = 1
@@ -381,6 +336,7 @@ let g:NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
+let g:NERDTreeLimitedSyntax = 1
 
 " End NERDTree
 " ============================================================================
@@ -417,9 +373,20 @@ let g:flow#timeout = 10
 
 " ============================================================================
 
+" ALE
+" ============================================================================
+let g:ale_linters = {
+            \ 'html': ['HTMLHint'],
+            \ 'go': ['gometalinter'],
+            \ 'typescript': ['tslint'],
+            \ 'javascript': [''],
+\}
 
-let g:indentLine_char = '⎸'
-let g:tsuquyomi_use_vimproc=1
+" ============================================================================
+
+nmap <C-h> :s/<[^>]*>/\r&\r/g<CR>:g/^$/d<CR>
+
+" let g:tsuquyomi_use_vimproc=1
 set background=dark
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.

@@ -1,20 +1,5 @@
 # Global plugins
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
-hook_post_update = '''
-  if dein#util#_is_windows()
-    let cmd = 'tools\\update-dll-mingw'
-  elseif dein#util#_is_cygwin()
-    let cmd = 'make -f make_cygwin.mak'
-  elseif executable('gmake')
-    let cmd = 'gmake'
-  else
-    let cmd = 'make'
-  endif
-  let g:dein#plugin.build = cmd
-'''
-
-[[plugins]]
 repo = 'tmhedberg/matchit'
 
 [[plugins]]
@@ -30,7 +15,7 @@ repo = 'flazz/vim-colorschemes'
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
-repo = 'neomake/neomake'
+repo = 'w0rp/ale'
 
 [[plugins]]
 repo = 'tpope/vim-surround'
@@ -71,13 +56,29 @@ repo = 'kana/vim-tabpagecd'
 [[plugins]]
 repo = 'bkad/CamelCaseMotion'
 
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+# on_cmd = ['NERDTreeToggle']
+
+[[plugins]]
+repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+# on_cmd = ['NERDTreeToggle']
+
+[[plugins]]
+repo = 'blueyed/vim-diminactive'
+
 # Lazy plugins
 
 ## Insert mode
 [[plugins]]
-repo = 'Shougo/neocomplete.vim'
+repo = 'Shougo/deoplete.nvim'
 on_i = 1
 
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
 
 ## Python
 [[plugins]]
@@ -96,7 +97,7 @@ on_ft = ['go','gohtmltmpl']
 ## HTML
 [[plugins]]
 repo = 'mattn/emmet-vim'
-on_ft =  ['html', 'htmlcheetah', 'gohtmltmpl', 'javascript', 'markdown']
+on_ft =  ['html', 'htmlcheetah', 'gohtmltmpl', 'javascript', 'markdown', 'typescript']
 
 [[plugins]]
 repo = 'othree/html5.vim'
@@ -149,12 +150,20 @@ hook_post_update = '''
 '''
 
 [[plugins]]
+repo = 'ianks/vim-tsx'
+on_ft = ['typescript']
+
+[[plugins]]
 repo = 'fleischie/vim-styled-components'
-on_ft = ['javascript', 'javascript.jsx']
+on_ft = ['javascript', 'javascript.jsx', 'typescript']
 
 [[plugins]]
 repo = 'sbdchd/neoformat'
-on_ft = ['javascript', 'javascript.jsx']
+on_ft = ['javascript', 'javascript.jsx', 'json', 'typescript']
+
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = ['vue']
 
 # CSS
 
@@ -197,3 +206,18 @@ on_ft = ['json']
 [[plugins]]
 repo = 'nelsyeung/twig.vim'
 on_ft = ['twig']
+
+## Julia
+# [[plugins]]
+# repo = 'JuliaEditorSupport/julia-vim'
+# on_ft = ['julia']
+
+## Ruby
+[[plugins]]
+repo = 'uplus/deoplete-solargraph'
+on_ft = ['ruby']
+
+## Terraform
+[[plugins]]
+repo = 'hashivim/vim-terraform'
+on_ft = ['tf', 'terraform']
