@@ -1,0 +1,44 @@
+body {
+  font-family: 'Tsukushi A Round Gothic';
+  font-size: 16px;
+  line-height: 1.4;
+  color: rgba(0,0,0,.87);
+}
+
+pre, code {
+  font: 0.9rem 'Cica', 'CicaE';
+}
+
+ul li, ol li {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+li > ul {
+  margin: 0;
+}
+
+h2:before {
+  content: '\1f310';
+  font-family: 'Noto Emoji';
+  margin-right: 4px;
+  font-weight: 100;
+}
+
+h3:before {
+  content: '\1f340';
+  font-family: 'Noto Emoji';
+  margin-right: 4px;
+  font-weight: 100;
+}
+
+h4:before {
+  content: '\1f3af';
+  font-family: 'Noto Emoji';
+  margin-right: 4px;
+  font-weight: 100;
+}
+
+.mermaid {
+  max-width: 100%;
+}
