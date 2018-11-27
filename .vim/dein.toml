@@ -173,7 +173,8 @@ on_ft = ['css', 'scss', 'javascript', 'javascript.jsx']
 
 # Markdown
 [[plugins]]
-repo = 'kannokanno/previm'
+repo = 'previm/previm'
+rev = 'add-plantuml-plugin'
 on_ft = ['markdown']
 
 [[plugins]]
