@@ -2,7 +2,7 @@
 	name = miiton
 	email = 468745+miiton@users.noreply.github.com
 [core]
-	excludesfile = /Users/tmnm/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	editor = /Applications/MacVim.app/Contents/bin/mvim -f
 [diff]
     tool = mvim
