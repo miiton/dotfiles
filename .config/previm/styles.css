@@ -1,12 +1,12 @@
 body {
-  font-family: 'Tsukushi A Round Gothic';
+  font-family: 'Noto Sans CJK JP';
   font-size: 16px;
   line-height: 1.4;
   color: rgba(0,0,0,.87);
 }
 
 pre, code {
-  font: 0.9rem 'Cica', 'CicaE';
+  font: 0.9rem 'Cica';
 }
 
 ul li, ol li {
