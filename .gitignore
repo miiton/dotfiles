@@ -1,3 +1,4 @@
-.config
+.config/*
 !.config/nvim/init.vim
 !.config/nvim/dein.toml
+!.config/karabiner
