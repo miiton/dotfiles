@@ -34,7 +34,8 @@ set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 set scrolloff=8
 set undofile
 set undodir=~/.vimundo
-set grepprg=jvgrep
+set grepprg=rg\ --vimgrep\ --no-heading
+set grepformat=%f:%l:%c:%m,%f:%l:%m
 set cmdheight=2
 set splitright
 set completeopt=menuone,noinsert
@@ -79,6 +80,7 @@ filetype plugin indent on
 " ============================================================================
 " deoplete
 let g:deoplete#enable_at_startup = 1
+let b:deoplete_ignore_sources = ['buffer', 'markdown', 'gitcommit']
 "
 " End deoplete
 " ============================================================================
@@ -393,3 +395,27 @@ let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palett
 hi link goSpecialString Character
 colorscheme hybrid
 
+
+
+function! ProfileCursorMove() abort
+  let profile_file = expand('vim-profile.log')
+  if filereadable(profile_file)
+    call delete(profile_file)
+  endif
+
+  normal! gg
+  normal! zR
+
+  execute 'profile start ' . profile_file
+  profile func *
+  profile file *
+
+  augroup ProfileCursorMove
+    autocmd!
+    autocmd CursorHold <buffer> profile pause | q
+  augroup END
+
+  for i in range(100)
+    call feedkeys('j')
+  endfor
+endfunction
