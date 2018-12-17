@@ -70,6 +70,22 @@ repo = 'blueyed/vim-diminactive'
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'natebosch/vim-lsc'
+
+
 # Lazy plugins
 
 ## Insert mode

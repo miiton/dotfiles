@@ -80,7 +80,7 @@ filetype plugin indent on
 " ============================================================================
 " deoplete
 let g:deoplete#enable_at_startup = 1
-let b:deoplete_ignore_sources = ['buffer', 'markdown', 'gitcommit']
+let b:deoplete_ignore_sources = ['buffer', 'markdown', 'gitcommit', 'go']
 "
 " End deoplete
 " ============================================================================
@@ -116,6 +116,20 @@ let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on
 
 " ============================================================================
 " Golang settings
+"
+if executable('golsp')
+  augroup LspGo
+    au!
+    autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'go-lang',
+        \ 'cmd': {server_info->['golsp', '-mode', 'stdio']},
+        \ 'whitelist': ['go'],
+        \ })
+    autocmd FileType go setlocal omnifunc=lsp#complete
+  augroup END
+endif
+
+let g:lsp_async_completion = 1
 
 let g:go_list_type = "quickfix"
 let g:go_fmt_fail_silently = 1
@@ -132,6 +146,7 @@ autocmd FileType go :match goErr /\<err\>/
 autocmd FileType gohtmltmpl let b:match_words = '<:>,<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
 let g:go_metalinter_enabled = ['vet', 'golint']
 let g:go_metalinter_disabled = ['errcheck']
+
 
 " End Golang settings
 " ============================================================================
