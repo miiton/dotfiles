@@ -65,9 +65,6 @@ repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 # on_cmd = ['NERDTreeToggle']
 
 [[plugins]]
-repo = 'blueyed/vim-diminactive'
-
-[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 
 [[plugins]]
@@ -142,14 +139,6 @@ repo = 'flowtype/vim-flow'
 on_ft = ['javascript']
 hook_post_update = '''
   let cmd = 'npm install -g flow-bin'
-  let g:dein#plugin.build = cmd
-'''
-
-[[plugins]]
-repo = 'ternjs/tern_for_vim'
-on_ft = ['javascript']
-hook_post_update = '''
-  let cmd = 'yarn install'
   let g:dein#plugin.build = cmd
 '''
 

@@ -80,7 +80,7 @@ filetype plugin indent on
 " ============================================================================
 " deoplete
 let g:deoplete#enable_at_startup = 1
-let b:deoplete_ignore_sources = ['buffer', 'markdown', 'gitcommit', 'go']
+let b:deoplete_ignore_sources = ['buffer', 'markdown', 'gitcommit', 'go', 'sql', 'plantuml']
 "
 " End deoplete
 " ============================================================================
@@ -108,13 +108,6 @@ endif
 "
 
 " ============================================================================
-" ternjs
-let g:tern_request_timeout = 1
-let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
-" End ternjs settings
-" ============================================================================
-
-" ============================================================================
 " Golang settings
 "
 if executable('golsp')
@@ -129,6 +122,8 @@ if executable('golsp')
   augroup END
 endif
 
+autocmd FileType go nmap <silent> gd <Plug>(lsp-definition)
+autocmd FileType go nmap <C-]> <Plug>(lsp-definition)
 let g:lsp_async_completion = 1
 
 let g:go_list_type = "quickfix"
@@ -141,6 +136,7 @@ let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_snippet_case_type = "camelcase"
+let g:go_def_mapping_enabled = 0
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
 autocmd FileType gohtmltmpl let b:match_words = '<:>,<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
@@ -162,6 +158,10 @@ let QFixHowm_FileType   = 'markdown'
 let QFixHowm_Title      = '#'
 let QFixHowm_Autoformat = 0
 let QFixHowm_Folding    = 1
+let QFixHowm_Template = [
+  \"# %TAG%",
+  \""
+\]
 
 " End QFixHowm
 " ============================================================================
@@ -250,6 +250,14 @@ let g:EditorConfig_core_mode = 'external_command'
 
 " ============================================================================
 " Javascript
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+                \ 'name': 'javascript support using typescript-language-server',
+                \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+                \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+                \ 'whitelist': ['javascript', 'javascript.jsx']
+                \ })
+endif
 let g:esformatter_autosave = 1
 let g:javascript_plugin_jsdoc = 1
 
@@ -277,6 +285,8 @@ autocmd BufWritePre *.tsx Neoformat
 autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript
 autocmd BufWritePre *.json Neoformat
 autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json
+autocmd BufWritePre *.html Neoformat
+autocmd FileType html setlocal formatprg=prettier\ --stdin\ --parser\ html
 " Use formatprg when available
 let g:neoformat_try_formatprg = 1
 let g:tsuquyomi_single_quote_import = 1
