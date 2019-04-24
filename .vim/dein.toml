@@ -14,8 +14,8 @@ repo = 'flazz/vim-colorschemes'
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
-[[plugins]]
-repo = 'w0rp/ale'
+# [[plugins]]
+# repo = 'w0rp/ale'
 
 [[plugins]]
 repo = 'tpope/vim-surround'
@@ -56,8 +56,8 @@ repo = 'kana/vim-tabpagecd'
 [[plugins]]
 repo = 'bkad/CamelCaseMotion'
 
-[[plugins]]
-repo = 'ryanoasis/vim-devicons'
+# [[plugins]]
+# repo = 'ryanoasis/vim-devicons'
 # on_cmd = ['NERDTreeToggle']
 
 [[plugins]]
@@ -82,6 +82,8 @@ repo = 'prabirshrestha/asyncomplete-lsp.vim'
 [[plugins]]
 repo = 'natebosch/vim-lsc'
 
+[[plugins]]
+repo = 'itchyny/vim-parenmatch'
 
 # Lazy plugins
 
@@ -212,6 +214,16 @@ on_ft = ['json']
 [[plugins]]
 repo = 'nelsyeung/twig.vim'
 on_ft = ['twig']
+
+## Nginx
+[[plugins]]
+repo = 'chr4/nginx.vim'
+on_ft = ['nginx']
+
+## GraphQL
+[[plugins]]
+repo = 'jparise/vim-graphql'
+on_ft = ['graphql']
 
 ## Julia
 # [[plugins]]

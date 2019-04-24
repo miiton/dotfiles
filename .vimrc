@@ -44,6 +44,8 @@ set termguicolors
 set ambiwidth=double
 set shell=/bin/bash " http://this.aereal.org/entry/2014/02/02/002254
 set splitbelow
+set conceallevel=0
+let g:loaded_matchparen = 1
 
 " set pythonthreedll=/usr/local/Cellar/python3/3.6.0/Frameworks/Python.framework/Versions/3.6/Python
 
@@ -76,11 +78,29 @@ filetype plugin indent on
 
 " End dein.vim
 " ============================================================================
+"
+" ============================================================================
+" LSP
+"
+
+let g:lsp_diagnostics_enabled = 0
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
+let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+
+" End LSP
+" ============================================================================
 
 " ============================================================================
 " deoplete
+call deoplete#custom#option('ignore_sources', {
+    \ '_': ['around', 'file', 'dictionary',
+    \ 'tag', 'buffer', 'markdown', 'gitcommit', 'go', 'sql', 'plantuml']
+    \ })
+call deoplete#custom#option('num_processes', 2)
+call deoplete#custom#option('auto_complete_delay', 200)
+call deoplete#custom#option('auto_refresh_delay', 200)
 let g:deoplete#enable_at_startup = 1
-let b:deoplete_ignore_sources = ['buffer', 'markdown', 'gitcommit', 'go', 'sql', 'plantuml']
 "
 " End deoplete
 " ============================================================================
@@ -110,16 +130,12 @@ endif
 " ============================================================================
 " Golang settings
 "
-if executable('golsp')
-  augroup LspGo
-    au!
-    autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'go-lang',
-        \ 'cmd': {server_info->['golsp', '-mode', 'stdio']},
+if executable('gopls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
         \ 'whitelist': ['go'],
         \ })
-    autocmd FileType go setlocal omnifunc=lsp#complete
-  augroup END
 endif
 
 autocmd FileType go nmap <silent> gd <Plug>(lsp-definition)
@@ -224,13 +240,13 @@ function! LightLineFilename()
                 \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
-function! LightLineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-function! LightLineFileformat()
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
+" function! LightLineFiletype()
+"   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+" endfunction
+"
+" function! LightLineFileformat()
+"   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+" endfunction
 
 " End lightline
 " ============================================================================
@@ -315,10 +331,10 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+" " For conceal markers.
+" if has('conceal')
+"   set conceallevel=2 concealcursor=niv
+" endif
 
 let g:neosnippet#snippets_directory='~/Dropbox/dev/snippets'
 
@@ -331,13 +347,13 @@ nmap <C-s> :NeoSnippetEdit -split -vertical<CR>
 " ============================================================================
 " DevIcons
 
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = ''
-let g:NERDTreeExtensionHighlightColor = {}
-let g:NERDTreeExtensionHighlightColor['vue'] = "41B883"
-let g:NERDTreeExtensionHighlightColor['ts'] = "007ACC"
-let g:NERDTreeExtensionHighlightColor['tsx'] = "61dafb"
-let g:NERDTreeExtensionHighlightColor['jsx'] = "61dafb"
+" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = ''
+" let g:NERDTreeExtensionHighlightColor = {}
+" let g:NERDTreeExtensionHighlightColor['vue'] = "41B883"
+" let g:NERDTreeExtensionHighlightColor['ts'] = "007ACC"
+" let g:NERDTreeExtensionHighlightColor['tsx'] = "61dafb"
+" let g:NERDTreeExtensionHighlightColor['jsx'] = "61dafb"
 
 " End DevIcons
 " ============================================================================
@@ -361,8 +377,8 @@ let g:ctrlp_custom_ignore = {
 nmap <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
+" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+" let g:DevIconsEnableFoldersOpenClose = 1
 let g:NERDTreeLimitedSyntax = 1
 
 " End NERDTree
@@ -407,6 +423,7 @@ let g:ale_linters = {
             \ 'go': ['gometalinter'],
             \ 'typescript': ['tslint'],
             \ 'javascript': [''],
+            \ 'graphql': [''],
 \}
 
 " ============================================================================
