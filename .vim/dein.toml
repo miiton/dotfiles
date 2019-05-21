@@ -14,8 +14,8 @@ repo = 'flazz/vim-colorschemes'
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
-# [[plugins]]
-# repo = 'w0rp/ale'
+[[plugins]]
+repo = 'w0rp/ale'
 
 [[plugins]]
 repo = 'tpope/vim-surround'
