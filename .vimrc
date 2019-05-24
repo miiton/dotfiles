@@ -157,8 +157,10 @@ let g:go_def_mapping_enabled = 0
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
 autocmd FileType gohtmltmpl let b:match_words = '<:>,<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
-let g:go_metalinter_enabled = ['vet', 'golint']
-let g:go_metalinter_disabled = ['errcheck']
+" let g:go_metalinter_enabled = ['vet', 'golint']
+" let g:go_metalinter_disabled = ['errcheck']
+let g:ale_go_golangci_lint_options = '--fast'
+let g:ale_go_golangci_lint_package = 1
 
 
 " End Golang settings
@@ -421,7 +423,7 @@ let g:flow#timeout = 10
 " ============================================================================
 let g:ale_linters = {
             \ 'html': ['HTMLHint'],
-            \ 'go': ['gometalinter'],
+            \ 'go': ['golangci-lint'],
             \ 'typescript': ['tslint'],
             \ 'javascript': [''],
             \ 'graphql': [''],
