@@ -1,7 +1,7 @@
 body {
-  font-family: 'Noto Sans CJK JP', sans-serif;
+  font-family: Ubuntu, 'UD Digi Kyokasho N-R', sans-serif;
   font-size: 16px;
-  line-height: 1.4;
+  line-height: 1.45;
   color: rgba(0,0,0,.87);
 }
 
@@ -19,6 +19,7 @@ li > ul {
 }
 
 h1, h2, h3, h4, h5 {
+  font-family: Ubuntu, 'UD Digi Kyokasho N-B', sans-serif;
   font-weight: 900;
 }
 
@@ -57,3 +58,8 @@ h4:before {
   max-width: 100%;
 }
 
+@media print {
+  #markdown-file-name {
+    display: none;
+  }
+}
