@@ -109,12 +109,6 @@ on_ft = ['go']
 repo = 'fatih/vim-go'
 on_ft = ['go','gohtmltmpl']
 
-## PHP
-[[plugins]]
-repo  = 'phpactor/phpactor'
-on_ft = ['php']
-build = 'composer install'
-
 ## HTML
 [[plugins]]
 repo = 'mattn/emmet-vim'

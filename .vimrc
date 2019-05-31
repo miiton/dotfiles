@@ -88,6 +88,29 @@ let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/vim-lsp.log')
 let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
+augroup LspGo
+  au!
+  autocmd User lsp_setup call lsp#register_server({
+      \ 'name': 'go-lang',
+      \ 'cmd': {server_info->['gopls']},
+      \ 'whitelist': ['go'],
+      \ })
+  autocmd FileType go setlocal omnifunc=lsp#complete
+  "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
+  "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
+  "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
+augroup END
+
+augroup LspPHP
+  au!
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'intelephense',
+        \ 'cmd': {server_info->['/usr/local/bin/intelephense', '--stdio']},
+        \ 'whitelist': ['php'],
+        \ })
+  autocmd FileType php nnoremap <C-]> :LspDefinition<CR>
+augroup END
+
 " End LSP
 " ============================================================================
 
@@ -130,18 +153,6 @@ endif
 " ============================================================================
 " Golang settings
 "
-augroup LspGo
-  au!
-  autocmd User lsp_setup call lsp#register_server({
-      \ 'name': 'go-lang',
-      \ 'cmd': {server_info->['gopls']},
-      \ 'whitelist': ['go'],
-      \ })
-  autocmd FileType go setlocal omnifunc=lsp#complete
-  "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
-  "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
-  "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
-augroup END
 
 autocmd FileType go nmap <silent> gd <Plug>(lsp-definition)
 autocmd FileType go nmap <C-]> <Plug>(lsp-definition)
@@ -431,9 +442,12 @@ let g:ale_linters = {
             \ 'typescript': ['tslint'],
             \ 'javascript': [''],
             \ 'graphql': [''],
+            \ 'php': ['phpcs', 'php'],
 \}
+let g:ale_php_phpcs_standard = 'PSR1,PSR2'
 
 " ============================================================================
+
 
 nmap <C-h> :s/<[^>]*>/\r&\r/g<CR>:g/^$/d<CR>
 
