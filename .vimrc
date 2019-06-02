@@ -84,31 +84,77 @@ filetype plugin indent on
 "
 
 let g:lsp_diagnostics_enabled = 0
-let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('~/vim-lsp.log')
-let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+let g:lsp_log_verbose = 0
+let g:lsp_log_file = expand('~/.vim/vim-lsp.log')
+let g:asyncomplete_log_file = expand('~/.vim/asyncomplete.log')
+let g:lsp_async_completion = 1
 
+" Go
 augroup LspGo
-  au!
-  autocmd User lsp_setup call lsp#register_server({
-      \ 'name': 'go-lang',
-      \ 'cmd': {server_info->['gopls']},
-      \ 'whitelist': ['go'],
-      \ })
-  autocmd FileType go setlocal omnifunc=lsp#complete
-  "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
-  "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
-  "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
+    au!
+    autocmd User lsp_setup call lsp#register_server({
+                \ 'name': 'go',
+                \ 'cmd': {server_info->['gopls']},
+                \ 'whitelist': ['go'],
+                \ })
+    autocmd FileType go setlocal omnifunc=lsp#complete
+    autocmd FileType go nmap <buffer> <C-]> <plug>(lsp-definition)
+    "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
+    "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
+    "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
 augroup END
 
+" PHP
 augroup LspPHP
-  au!
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'intelephense',
-        \ 'cmd': {server_info->['/usr/local/bin/intelephense', '--stdio']},
-        \ 'whitelist': ['php'],
-        \ })
-  autocmd FileType php nnoremap <C-]> :LspDefinition<CR>
+    au!
+    au User lsp_setup call lsp#register_server({
+                \ 'name': 'php',
+                \ 'cmd': {server_info->['/usr/local/bin/intelephense', '--stdio']},
+                \ 'whitelist': ['php'],
+                \ })
+    autocmd FileType php nmap <buffer> <C-]> <plug>(lsp-definition)
+augroup END
+
+" Docker
+augroup LspDocker
+    au!
+    if executable('docker-langserver')
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'docker',
+                    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'docker-langserver --stdio']},
+                    \ 'whitelist': ['dockerfile'],
+                    \ })
+    endif
+augroup END
+
+" TypeScript
+augroup LspTypeScript
+    au!
+    if executable('typescript-language-server')
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'typescript',
+                    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+                    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+                    \ 'whitelist': ['typescript', 'typescript.tsx'],
+                    \ })
+    endif
+    autocmd FileType typescript nmap <buffer> <C-]> <plug>(lsp-definition)
+    autocmd FileType typescript.tsx nmap <buffer> <C-]> <plug>(lsp-definition)
+augroup END
+
+" JavaScript
+augroup LspJavaScript
+    au!
+    if executable('typescript-language-server')
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'javascript',
+                    \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+                    \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+                    \ 'whitelist': ['javascript', 'javascript.jsx']
+                    \ })
+    endif
+    autocmd FileType javascript nmap <buffer> <C-]> <plug>(lsp-definition)
+    autocmd FileType javascript.jsx nmap <buffer> <C-]> <plug>(lsp-definition)
 augroup END
 
 " End LSP
@@ -154,9 +200,6 @@ endif
 " Golang settings
 "
 
-autocmd FileType go nmap <silent> gd <Plug>(lsp-definition)
-autocmd FileType go nmap <C-]> <Plug>(lsp-definition)
-let g:lsp_async_completion = 1
 
 let g:go_list_type = "quickfix"
 let g:go_fmt_fail_silently = 1
@@ -174,8 +217,6 @@ autocmd FileType go :match goErr /\<err\>/
 autocmd FileType gohtmltmpl let b:match_words = '<:>,<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
 " let g:go_metalinter_enabled = ['vet', 'golint']
 " let g:go_metalinter_disabled = ['errcheck']
-let g:ale_go_golangci_lint_options = '--fast'
-let g:ale_go_golangci_lint_package = 1
 
 
 " End Golang settings
@@ -284,14 +325,6 @@ let g:EditorConfig_core_mode = 'external_command'
 
 " ============================================================================
 " Javascript
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-                \ 'name': 'javascript support using typescript-language-server',
-                \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-                \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-                \ 'whitelist': ['javascript', 'javascript.jsx']
-                \ })
-endif
 let g:esformatter_autosave = 1
 let g:javascript_plugin_jsdoc = 1
 
@@ -445,6 +478,8 @@ let g:ale_linters = {
             \ 'php': ['phpcs', 'php'],
 \}
 let g:ale_php_phpcs_standard = 'PSR1,PSR2'
+let g:ale_go_golangci_lint_options = '--fast'
+let g:ale_go_golangci_lint_package = 1
 
 " ============================================================================
 
