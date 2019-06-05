@@ -13,7 +13,7 @@ indent_size = 4
 [**.php]
 charset = utf-8
 indent_style = space
-indent_size = 2
+indent_size = 4
 
 [**.{js,ts,jsx,tsx}]
 charset = utf-8

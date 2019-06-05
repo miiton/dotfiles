@@ -20,8 +20,8 @@
     ui = auto
 [alias]
     s = status --short --branch
-    l = log -n 15 --date=format:'%Y-%m-%d %H:%M' --graph --all --pretty='%x09%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%cn%C(reset) %s %Cred%d%>(20)%C(reset)'
-    ln = log -n 15 --date=format:'%Y-%m-%d %H:%M' --graph --all --pretty='%x09%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%cn%C(reset) %s %Cred%d%>(20)%C(reset)' --no-merges
+    l = log -n 15 --date=format:'%Y-%m-%d %H:%M' --graph --all --pretty='%x09%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%cn%C(reset) %s %Cred%d%>(20)%C(reset)' --date-order
+    ln = log -n 15 --date=format:'%Y-%m-%d %H:%M' --graph --all --pretty='%x09%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%cn%C(reset) %s %Cred%d%>(20)%C(reset)' --no-merges --date-order
     cp = cherry-pick -x
 [push]
     default = simple
