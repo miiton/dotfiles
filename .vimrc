@@ -17,7 +17,7 @@ set encoding=utf-8
 scriptencoding utf-8
 set fileencodings=ucs-bom,utf-8,cp932,utf-16,utf-16le,iso-2022-jp,euc-jp,default,latin
 set cursorline
-set cursorcolumn
+" set cursorcolumn
 set autoread
 set virtualedit=block
 set formatoptions+=mM
@@ -102,6 +102,19 @@ augroup LspGo
     "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
     "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
     "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
+augroup END
+
+" Python
+augroup LspPython
+    au!
+    if executable('pyls')
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'pyls',
+                    \ 'cmd': {server_info->['pyls']},
+                    \ 'whitelist': ['python'],
+                    \ })
+    endif
+    autocmd FileType python nmap <buffer> <C-]> <plug>(lsp-definition)
 augroup END
 
 " PHP
@@ -482,7 +495,60 @@ let g:ale_go_golangci_lint_options = '--fast'
 let g:ale_go_golangci_lint_package = 1
 
 " ============================================================================
+"
 
+" Vista
+
+let g:vista_icon_indent = ["󲕰󲔀▸ ", "󲔜󲔀▸ "]
+let g:vista_default_executive = 'vim_lsp'
+let g:vista#renderer#icons = {
+            \ 'func':           "\Uff794",
+            \ 'function':       "\Uff794",
+            \ 'functions':      "\Uff794",
+            \ 'var':            "\Uff71b",
+            \ 'variable':       "\Uff71b",
+            \ 'variables':      "\Uff71b",
+            \ 'const':          "\Uff8ff",
+            \ 'constant':       "\Uff8ff",
+            \ 'method':         "\Uff6a6",
+            \ 'package':        "\Ufe612",
+            \ 'packages':       "\Ufe612",
+            \ 'enum':           "\Uff435",
+            \ 'enumerator':     "\Uff435",
+            \ 'module':         "\Uff668",
+            \ 'modules':        "\Uff668",
+            \ 'type':           "\Ufe22b",
+            \ 'typedef':        "\Ufe22b",
+            \ 'types':          "\Ufe22b",
+            \ 'field':          "\Uff93d",
+            \ 'fields':         "\Uff93d",
+            \ 'macro':          "\Uff8a3",
+            \ 'macros':         "\Uff8a3",
+            \ 'map':            "\Uffb44",
+            \ 'class':          "\Uf0e8",
+            \ 'augroup':        "\Uffb44",
+            \ 'struct':         "\Uffb44",
+            \ 'union':          "\Uffacd",
+            \ 'member':         "\Uff02b",
+            \ 'target':         "\Uff893",
+            \ 'property':       "\Uffab6",
+            \ 'interface':      "\Uffa52",
+            \ 'namespace':      "\Uff475",
+            \ 'subroutine':     "\Uff915",
+            \ 'implementation': "\Uff87a",
+            \ 'typeParameter':  "\Uff278",
+            \ 'default':        "\Uff29c"
+            \ }
+
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:webdevicons_enable_ctrlp = 1
+
+augroup vimrc-auto-cursorline
+  autocmd!
+  autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline
+  autocmd CursorHold,CursorHoldI * setlocal cursorline
+augroup END
 
 nmap <C-h> :s/<[^>]*>/\r&\r/g<CR>:g/^$/d<CR>
 

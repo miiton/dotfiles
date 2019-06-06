@@ -56,9 +56,8 @@ repo = 'kana/vim-tabpagecd'
 [[plugins]]
 repo = 'bkad/CamelCaseMotion'
 
-# [[plugins]]
-# repo = 'ryanoasis/vim-devicons'
-# on_cmd = ['NERDTreeToggle']
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
 
 [[plugins]]
 repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -84,6 +83,9 @@ repo = 'natebosch/vim-lsc'
 
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
+
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
 
 # Lazy plugins
 
