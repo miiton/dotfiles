@@ -217,6 +217,10 @@ on_ft = ['json']
 repo = 'nelsyeung/twig.vim'
 on_ft = ['twig']
 
+[[plugins]]
+repo = 'StanAngeloff/php.vim'
+on_ft = ['php']
+
 ## Nginx
 [[plugins]]
 repo = 'chr4/nginx.vim'

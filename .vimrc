@@ -16,7 +16,7 @@ set noswapfile
 set encoding=utf-8
 scriptencoding utf-8
 set fileencodings=ucs-bom,utf-8,cp932,utf-16,utf-16le,iso-2022-jp,euc-jp,default,latin
-set cursorline
+" set cursorline
 " set cursorcolumn
 set autoread
 set virtualedit=block
@@ -544,42 +544,10 @@ let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
 let g:webdevicons_enable_ctrlp = 1
 
-augroup vimrc-auto-cursorline
-  autocmd!
-  autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline
-  autocmd CursorHold,CursorHoldI * setlocal cursorline
-augroup END
-
 nmap <C-h> :s/<[^>]*>/\r&\r/g<CR>:g/^$/d<CR>
 
-" let g:tsuquyomi_use_vimproc=1
 set background=dark
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
 hi link goSpecialString Character
 colorscheme hybrid
-
-
-
-function! ProfileCursorMove() abort
-  let profile_file = expand('vim-profile.log')
-  if filereadable(profile_file)
-    call delete(profile_file)
-  endif
-
-  normal! gg
-  normal! zR
-
-  execute 'profile start ' . profile_file
-  profile func *
-  profile file *
-
-  augroup ProfileCursorMove
-    autocmd!
-    autocmd CursorHold <buffer> profile pause | q
-  augroup END
-
-  for i in range(100)
-    call feedkeys('j')
-  endfor
-endfunction
