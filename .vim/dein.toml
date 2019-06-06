@@ -33,9 +33,6 @@ repo = 'junegunn/vim-easy-align'
 repo = 'chrisbra/vim-diff-enhanced'
 
 [[plugins]]
-repo = 'majutsushi/tagbar'
-
-[[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
@@ -45,13 +42,7 @@ repo = 'Shougo/neosnippet.vim'
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
-repo = 'tpope/vim-obsession'
-
-[[plugins]]
 repo ='scrooloose/nerdtree'
-
-[[plugins]]
-repo = 'kana/vim-tabpagecd'
 
 [[plugins]]
 repo = 'bkad/CamelCaseMotion'
@@ -61,25 +52,9 @@ repo = 'ryanoasis/vim-devicons'
 
 [[plugins]]
 repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
-# on_cmd = ['NERDTreeToggle']
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
-
-[[plugins]]
-repo = 'natebosch/vim-lsc'
+repo = 'neoclide/coc.nvim'
 
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
@@ -97,16 +72,7 @@ repo = 'roxma/nvim-yarp'
 [[plugins]]
 repo = 'roxma/vim-hug-neovim-rpc'
 
-## Python
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-on_ft = ['python']
-
 ## Go
-[[plugins]]
-repo = 'zchee/deoplete-go'
-on_ft = ['go']
-
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = ['go','gohtmltmpl']
@@ -149,14 +115,6 @@ hook_post_update = '''
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
 on_ft = ['typescript']
-
-[[plugins]]
-repo = 'Quramy/tsuquyomi'
-on_ft = ['typescript']
-hook_post_update = '''
-  let cmd = 'npm install -g typescript'
-  let g:dein#plugin.build = cmd
-'''
 
 [[plugins]]
 repo = 'ianks/vim-tsx'
@@ -217,10 +175,6 @@ on_ft = ['json']
 repo = 'nelsyeung/twig.vim'
 on_ft = ['twig']
 
-[[plugins]]
-repo = 'StanAngeloff/php.vim'
-on_ft = ['php']
-
 ## Nginx
 [[plugins]]
 repo = 'chr4/nginx.vim'
@@ -235,11 +189,6 @@ on_ft = ['graphql']
 # [[plugins]]
 # repo = 'JuliaEditorSupport/julia-vim'
 # on_ft = ['julia']
-
-## Ruby
-[[plugins]]
-repo = 'uplus/deoplete-solargraph'
-on_ft = ['ruby']
 
 ## Terraform
 [[plugins]]

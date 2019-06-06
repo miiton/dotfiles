@@ -16,7 +16,7 @@ set noswapfile
 set encoding=utf-8
 scriptencoding utf-8
 set fileencodings=ucs-bom,utf-8,cp932,utf-16,utf-16le,iso-2022-jp,euc-jp,default,latin
-" set cursorline
+set cursorline
 " set cursorcolumn
 set autoread
 set virtualedit=block
@@ -79,113 +79,6 @@ filetype plugin indent on
 " End dein.vim
 " ============================================================================
 "
-" ============================================================================
-" LSP
-"
-
-let g:lsp_diagnostics_enabled = 0
-let g:lsp_log_verbose = 0
-let g:lsp_log_file = expand('~/.vim/vim-lsp.log')
-let g:asyncomplete_log_file = expand('~/.vim/asyncomplete.log')
-let g:lsp_async_completion = 1
-
-" Go
-augroup LspGo
-    au!
-    autocmd User lsp_setup call lsp#register_server({
-                \ 'name': 'go',
-                \ 'cmd': {server_info->['gopls']},
-                \ 'whitelist': ['go'],
-                \ })
-    autocmd FileType go setlocal omnifunc=lsp#complete
-    autocmd FileType go nmap <buffer> <C-]> <plug>(lsp-definition)
-    "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
-    "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
-    "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
-augroup END
-
-" Python
-augroup LspPython
-    au!
-    if executable('pyls')
-        au User lsp_setup call lsp#register_server({
-                    \ 'name': 'pyls',
-                    \ 'cmd': {server_info->['pyls']},
-                    \ 'whitelist': ['python'],
-                    \ })
-    endif
-    autocmd FileType python nmap <buffer> <C-]> <plug>(lsp-definition)
-augroup END
-
-" PHP
-augroup LspPHP
-    au!
-    au User lsp_setup call lsp#register_server({
-                \ 'name': 'php',
-                \ 'cmd': {server_info->['/usr/local/bin/intelephense', '--stdio']},
-                \ 'whitelist': ['php'],
-                \ })
-    autocmd FileType php nmap <buffer> <C-]> <plug>(lsp-definition)
-augroup END
-
-" Docker
-augroup LspDocker
-    au!
-    if executable('docker-langserver')
-        au User lsp_setup call lsp#register_server({
-                    \ 'name': 'docker',
-                    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'docker-langserver --stdio']},
-                    \ 'whitelist': ['dockerfile'],
-                    \ })
-    endif
-augroup END
-
-" TypeScript
-augroup LspTypeScript
-    au!
-    if executable('typescript-language-server')
-        au User lsp_setup call lsp#register_server({
-                    \ 'name': 'typescript',
-                    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-                    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-                    \ 'whitelist': ['typescript', 'typescript.tsx'],
-                    \ })
-    endif
-    autocmd FileType typescript nmap <buffer> <C-]> <plug>(lsp-definition)
-    autocmd FileType typescript.tsx nmap <buffer> <C-]> <plug>(lsp-definition)
-augroup END
-
-" JavaScript
-augroup LspJavaScript
-    au!
-    if executable('typescript-language-server')
-        au User lsp_setup call lsp#register_server({
-                    \ 'name': 'javascript',
-                    \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-                    \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-                    \ 'whitelist': ['javascript', 'javascript.jsx']
-                    \ })
-    endif
-    autocmd FileType javascript nmap <buffer> <C-]> <plug>(lsp-definition)
-    autocmd FileType javascript.jsx nmap <buffer> <C-]> <plug>(lsp-definition)
-augroup END
-
-" End LSP
-" ============================================================================
-
-" ============================================================================
-" deoplete
-call deoplete#custom#option('ignore_sources', {
-    \ '_': ['around', 'file', 'dictionary',
-    \ 'tag', 'buffer', 'markdown', 'gitcommit', 'go', 'sql', 'plantuml']
-    \ })
-call deoplete#custom#option('num_processes', 2)
-call deoplete#custom#option('auto_complete_delay', 200)
-call deoplete#custom#option('auto_refresh_delay', 200)
-let g:deoplete#enable_at_startup = 1
-"
-" End deoplete
-" ============================================================================
 
 " ============================================================================
 " Key maps
@@ -212,8 +105,6 @@ endif
 " ============================================================================
 " Golang settings
 "
-
-
 let g:go_list_type = "quickfix"
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
@@ -270,10 +161,12 @@ let g:lightline = {
             \   'filetype': 'LightLineFiletype',
             \   'fileformat': 'LightLineFileformat',
             \ },
-            \ 'separator': { 'left': '', 'right': '' },
-            \ 'subseparator': { 'left': '', 'right': '' }
+            \ 'separator': { 'left': '', 'right': '' },
+            \ 'subseparator': { 'left': '', 'right': '' }
             \ }
 
+"           \ 'separator': { 'left': '', 'right': '' },
+"           \ 'subseparator': { 'left': '', 'right': '' }
 "           \ 'separator': { 'left': '', 'right': '' },
 "           \ 'subseparator': { 'left': '', 'right': '' }
 function! LightLineModified()
@@ -312,13 +205,13 @@ function! LightLineFilename()
                 \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
-" function! LightLineFiletype()
-"   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-" endfunction
-"
-" function! LightLineFileformat()
-"   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-" endfunction
+function! LightLineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! LightLineFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
 
 " End lightline
 " ============================================================================
@@ -411,13 +304,13 @@ nmap <C-s> :NeoSnippetEdit -split -vertical<CR>
 " ============================================================================
 " DevIcons
 
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = ''
-" let g:NERDTreeExtensionHighlightColor = {}
-" let g:NERDTreeExtensionHighlightColor['vue'] = "41B883"
-" let g:NERDTreeExtensionHighlightColor['ts'] = "007ACC"
-" let g:NERDTreeExtensionHighlightColor['tsx'] = "61dafb"
-" let g:NERDTreeExtensionHighlightColor['jsx'] = "61dafb"
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = ''
+let g:NERDTreeExtensionHighlightColor = {}
+let g:NERDTreeExtensionHighlightColor['vue'] = "41B883"
+let g:NERDTreeExtensionHighlightColor['ts'] = "007ACC"
+let g:NERDTreeExtensionHighlightColor['tsx'] = "61dafb"
+let g:NERDTreeExtensionHighlightColor['jsx'] = "61dafb"
 
 " End DevIcons
 " ============================================================================
@@ -495,12 +388,15 @@ let g:ale_go_golangci_lint_options = '--fast'
 let g:ale_go_golangci_lint_package = 1
 
 " ============================================================================
-"
+
+
+" Coc
+nmap <silent> <C-]> <plug>(coc-definition)
 
 " Vista
 
 let g:vista_icon_indent = ["󲕰󲔀▸ ", "󲔜󲔀▸ "]
-let g:vista_default_executive = 'vim_lsp'
+let g:vista_default_executive = 'coc'
 let g:vista#renderer#icons = {
             \ 'func':           "\Uff794",
             \ 'function':       "\Uff794",
@@ -525,7 +421,7 @@ let g:vista#renderer#icons = {
             \ 'macro':          "\Uff8a3",
             \ 'macros':         "\Uff8a3",
             \ 'map':            "\Uffb44",
-            \ 'class':          "\Uf0e8",
+            \ 'class':          "\Uff9a9",
             \ 'augroup':        "\Uffb44",
             \ 'struct':         "\Uffb44",
             \ 'union':          "\Uffacd",
