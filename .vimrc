@@ -100,7 +100,7 @@ if &diff
 endif
 " End enhanced diff
 " ============================================================================
-"
+
 
 " ============================================================================
 " Golang settings
@@ -224,8 +224,8 @@ let g:vim_json_syntax_conceal = 0
 
 " ============================================================================
 " EditorConfig
-let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
-let g:EditorConfig_core_mode = 'external_command'
+" let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
+" let g:EditorConfig_core_mode = 'external_command'
 " End EditorConfig
 " ============================================================================
 
@@ -395,7 +395,7 @@ nmap <silent> <C-]> <plug>(coc-definition)
 
 " Vista
 
-let g:vista_icon_indent = ["󲕰󲔀▸ ", "󲔜󲔀▸ "]
+let g:vista_icon_indent = ["󳄀󳄂 ", "󳄁󳄂 "]
 let g:vista_default_executive = 'coc'
 let g:vista#renderer#icons = {
             \ 'func':           "\Uff794",
