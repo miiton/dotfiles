@@ -260,6 +260,8 @@ autocmd BufWritePre *.json Neoformat
 autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json
 autocmd BufWritePre *.html Neoformat
 autocmd FileType html setlocal formatprg=prettier\ --stdin\ --parser\ html
+autocmd BufWritePre *.tmpl Neoformat
+autocmd FileType gohtmltmpl setlocal formatprg=prettier\ --stdin\ --parser\ html
 " Use formatprg when available
 let g:neoformat_try_formatprg = 1
 let g:tsuquyomi_single_quote_import = 1
