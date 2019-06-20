@@ -1,0 +1,41 @@
+{
+  "suggest.noselect": false,
+  "suggest.preferCompleteThanJumpPlaceholder": true,
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    },
+    "php": {
+      "command": "intelephense",
+      "rootPatterns": [".git/", ".hg/", "composer.json"],
+      "args": ["--stdio"],
+      "filetypes": ["php"],
+      "initializationOptions": {
+        "storagePath": "/tmp/intelephense"
+      }
+    },
+    "python": {
+      "command": "pyls",
+      "filetypes": ["python"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    },
+    "javascript": {
+      "command": "typescript-language-server",
+      "rootPatterns": [".git/", "package.json"],
+      "filetypes": ["javascript", "javascript.jsx"],
+      "args": ["--stdio"]
+    },
+    "typescript": {
+      "command": "typescript-language-server",
+      "rootPatterns": [".git/", "package.json"],
+      "filetypes": ["typescript", "typescript.jsx"],
+      "args": ["--stdio"]
+    }
+  }
+}
