@@ -113,10 +113,6 @@ hook_post_update = '''
 '''
 
 [[plugins]]
-repo = 'leafgarland/typescript-vim'
-on_ft = ['typescript']
-
-[[plugins]]
 repo = 'ianks/vim-tsx'
 on_ft = ['typescript']
 
