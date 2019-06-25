@@ -121,10 +121,6 @@ repo = 'fleischie/vim-styled-components'
 on_ft = ['javascript', 'javascript.jsx', 'typescript']
 
 [[plugins]]
-repo = 'sbdchd/neoformat'
-on_ft = ['javascript', 'javascript.jsx', 'json', 'typescript']
-
-[[plugins]]
 repo = 'posva/vim-vue'
 on_ft = ['vue']
 

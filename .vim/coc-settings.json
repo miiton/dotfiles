@@ -34,8 +34,18 @@
     "typescript": {
       "command": "typescript-language-server",
       "rootPatterns": [".git/", "package.json"],
-      "filetypes": ["typescript", "typescript.jsx"],
+      "filetypes": ["typescript", "typescript.tsx"],
       "args": ["--stdio"]
     }
-  }
+  },
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "Markdown"
+  ],
+  "prettier.requireConfig": true
 }

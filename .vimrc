@@ -250,23 +250,6 @@ let g:user_emmet_settings = {
 \}
 let g:flow#autoclose = 1
 let g:jsx_ext_required = 0
-autocmd BufWritePre *.js Neoformat
-autocmd BufWritePre *.jsx Neoformat
-autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow
-autocmd BufWritePre *.ts Neoformat
-autocmd BufWritePre *.tsx Neoformat
-autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript
-autocmd BufWritePre *.json Neoformat
-autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json
-autocmd BufWritePre *.html Neoformat
-autocmd FileType html setlocal formatprg=prettier\ --stdin\ --parser\ html
-autocmd BufWritePre *.tmpl Neoformat
-autocmd FileType gohtmltmpl setlocal formatprg=prettier\ --stdin\ --parser\ html
-" Use formatprg when available
-let g:neoformat_try_formatprg = 1
-let g:tsuquyomi_single_quote_import = 1
-let g:tsuquyomi_semicolon_import = 0
-nmap <C-i> <Plug>(TsuquyomiImport)<CR>
 "
 " End Javascript
 " ============================================================================
