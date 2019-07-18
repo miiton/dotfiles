@@ -116,6 +116,8 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_snippet_case_type = "camelcase"
 let g:go_def_mapping_enabled = 0
+" let g:go_def_mode = 'gopls'
+let g:go_template_autocreate = 0
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
 autocmd FileType gohtmltmpl let b:match_words = '<:>,<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>'
@@ -161,10 +163,12 @@ let g:lightline = {
             \   'filetype': 'LightLineFiletype',
             \   'fileformat': 'LightLineFileformat',
             \ },
-            \ 'separator': { 'left': '', 'right': '' },
-            \ 'subseparator': { 'left': '', 'right': '' }
+            \ 'separator': { 'left': '󾂰', 'right': '󾂲' },
+            \ 'subseparator': { 'left': '󾂱', 'right': '󾂳' }
             \ }
 
+"           \ 'separator': { 'left': '󾕦', 'right': '󾕧' },
+"           \ 'subseparator': { 'left': '', 'right': '' }
 "           \ 'separator': { 'left': '', 'right': '' },
 "           \ 'subseparator': { 'left': '', 'right': '' }
 "           \ 'separator': { 'left': '', 'right': '' },
@@ -374,14 +378,103 @@ let g:ale_go_golangci_lint_package = 1
 
 " ============================================================================
 
+" ============================================================================
+" LSP
+let g:lsp_diagnostics_enabled = 0
+let g:lsp_log_verbose = 0
+let g:lsp_log_file = expand('~/.vim/vim-lsp.log')
+let g:asyncomplete_log_file = expand('~/.vim/asyncomplete.log')
+let g:lsp_async_completion = 1
 
-" Coc
-nmap <silent> <C-]> <plug>(coc-definition)
+" Go
+augroup LspGo
+    au!
+    autocmd User lsp_setup call lsp#register_server({
+                \ 'name': 'gopls',
+                \ 'cmd': {server_info->['gopls']},
+                \ 'whitelist': ['go'],
+                \ })
+    autocmd FileType go setlocal omnifunc=lsp#complete
+    autocmd FileType go nmap <buffer> <C-]> <plug>(lsp-definition)
+    "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
+    "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
+    "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
+augroup END
+
+" Python
+augroup LspPython
+    au!
+    if executable('pyls')
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'pyls',
+                    \ 'cmd': {server_info->['pyls']},
+                    \ 'whitelist': ['python'],
+                    \ })
+    endif
+    autocmd FileType python nmap <buffer> <C-]> <plug>(lsp-definition)
+augroup END
+
+" PHP
+augroup LspPHP
+    au!
+    au User lsp_setup call lsp#register_server({
+                \ 'name': 'php',
+                \ 'cmd': {server_info->['/usr/local/bin/intelephense', '--stdio']},
+                \ 'whitelist': ['php'],
+                \ })
+    autocmd FileType php nmap <buffer> <C-]> <plug>(lsp-definition)
+augroup END
+
+" Docker
+augroup LspDocker
+    au!
+    if executable('docker-langserver')
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'docker',
+                    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'docker-langserver --stdio']},
+                    \ 'whitelist': ['dockerfile'],
+                    \ })
+    endif
+augroup END
+
+" TypeScript
+augroup LspTypeScript
+    au!
+    if executable('typescript-language-server')
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'typescript',
+                    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+                    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+                    \ 'whitelist': ['typescript', 'typescript.tsx'],
+                    \ })
+    endif
+    autocmd FileType typescript nmap <buffer> <C-]> <plug>(lsp-definition)
+    autocmd FileType typescript.tsx nmap <buffer> <C-]> <plug>(lsp-definition)
+augroup END
+
+" JavaScript
+augroup LspJavaScript
+    au!
+    if executable('typescript-language-server')
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'javascript',
+                    \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+                    \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+                    \ 'whitelist': ['javascript', 'javascript.jsx']
+                    \ })
+    endif
+    autocmd FileType javascript nmap <buffer> <C-]> <plug>(lsp-definition)
+    autocmd FileType javascript.jsx nmap <buffer> <C-]> <plug>(lsp-definition)
+augroup END
+
+" End LSP
+" ============================================================================
+
 
 " Vista
 
 let g:vista_icon_indent = ["󳄀󳄂 ", "󳄁󳄂 "]
-let g:vista_default_executive = 'coc'
+let g:vista_default_executive = 'vim_lsp'
 let g:vista#renderer#icons = {
             \ 'func':           "\Uff794",
             \ 'function':       "\Uff794",
@@ -426,6 +519,10 @@ let g:webdevicons_enable_nerdtree = 1
 let g:webdevicons_enable_ctrlp = 1
 
 nmap <C-h> :s/<[^>]*>/\r&\r/g<CR>:g/^$/d<CR>
+
+let g:eskk#directory = "~/.config/eskk"
+let g:eskk#dictionary = { 'path': "~/.config/eskk/skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
+let g:eskk#large_dictionary = { 'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
 
 set background=dark
 let g:hybrid_custom_term_colors = 1
