@@ -115,6 +115,7 @@ let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_snippet_case_type = "camelcase"
+let g:go_addtags_transform = 'camelcase'
 let g:go_def_mapping_enabled = 0
 " let g:go_def_mode = 'gopls'
 let g:go_template_autocreate = 0
@@ -312,6 +313,8 @@ let g:ctrlp_use_migemo = 1
 let g:ctrlp_custom_ignore = {
 \ 'dir':  '\v[\/](\.(git|hg|svn)|node_modules)$'
 \ }
+let g:ctrlp_clear_cache_on_exit = 1
+let g:ctrlp_use_caching = 3
 
 
 " End CtrlP
@@ -365,107 +368,51 @@ let g:flow#timeout = 10
 " ALE
 " ============================================================================
 let g:ale_linters = {
-            \ 'html': ['HTMLHint'],
-            \ 'go': ['golangci-lint'],
-            \ 'typescript': ['tslint'],
+            \ 'html': [''],
+            \ 'go': [''],
+            \ 'typescript': [''],
             \ 'javascript': [''],
             \ 'graphql': [''],
-            \ 'php': ['phpcs', 'php'],
+            \ 'php': [''],
 \}
-let g:ale_php_phpcs_standard = 'PSR1,PSR2'
-let g:ale_go_golangci_lint_options = '--fast'
-let g:ale_go_golangci_lint_package = 1
+let g:ale_fixers = {
+      \ 'javascript': ['prettier'],
+      \ 'typescript': ['prettier'],
+      \ }
+let g:ale_fix_on_save = 1
 
 " ============================================================================
 
 " ============================================================================
 " LSP
-let g:lsp_diagnostics_enabled = 0
-let g:lsp_log_verbose = 0
-let g:lsp_log_file = expand('~/.vim/vim-lsp.log')
-let g:asyncomplete_log_file = expand('~/.vim/asyncomplete.log')
-let g:lsp_async_completion = 1
+" let g:lsp_diagnostics_enabled = 0
+" let g:lsp_fold_enabled = 0
+" let g:lsp_log_verbose = 0
+" " let g:lsp_log_file = expand('~/.vim/vim-lsp.log')
+" " let g:asyncomplete_log_file = expand('~/.vim/asyncomplete.log')
+" let g:lsp_async_completion = 1
+" nmap <silent> <leader>p :LspHover<CR>
+let g:lsp_settings_servers_dir = '/Users/tmnm/.config/vim-lsp-servers'
+let g:asyncomplete_auto_popup = 0
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
 
-" Go
-augroup LspGo
-    au!
-    autocmd User lsp_setup call lsp#register_server({
-                \ 'name': 'gopls',
-                \ 'cmd': {server_info->['gopls']},
-                \ 'whitelist': ['go'],
-                \ })
-    autocmd FileType go setlocal omnifunc=lsp#complete
-    autocmd FileType go nmap <buffer> <C-]> <plug>(lsp-definition)
-    "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
-    "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
-    "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
-augroup END
+inoremap <silent><expr> <C-x><C-o>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\ <C-x><C-o>" :
+  \ asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" Python
-augroup LspPython
-    au!
-    if executable('pyls')
-        au User lsp_setup call lsp#register_server({
-                    \ 'name': 'pyls',
-                    \ 'cmd': {server_info->['pyls']},
-                    \ 'whitelist': ['python'],
-                    \ })
-    endif
-    autocmd FileType python nmap <buffer> <C-]> <plug>(lsp-definition)
-augroup END
+autocmd BufWritePre <buffer>
+                \ call execute('LspCodeActionSync source.organizeImports')
+autocmd BufWritePre <buffer>
+                \ call execute('LspDocumentFormatSync')
 
-" PHP
-augroup LspPHP
-    au!
-    au User lsp_setup call lsp#register_server({
-                \ 'name': 'php',
-                \ 'cmd': {server_info->['/usr/local/bin/intelephense', '--stdio']},
-                \ 'whitelist': ['php'],
-                \ })
-    autocmd FileType php nmap <buffer> <C-]> <plug>(lsp-definition)
-augroup END
-
-" Docker
-augroup LspDocker
-    au!
-    if executable('docker-langserver')
-        au User lsp_setup call lsp#register_server({
-                    \ 'name': 'docker',
-                    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'docker-langserver --stdio']},
-                    \ 'whitelist': ['dockerfile'],
-                    \ })
-    endif
-augroup END
-
-" TypeScript
-augroup LspTypeScript
-    au!
-    if executable('typescript-language-server')
-        au User lsp_setup call lsp#register_server({
-                    \ 'name': 'typescript',
-                    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-                    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-                    \ 'whitelist': ['typescript', 'typescript.tsx'],
-                    \ })
-    endif
-    autocmd FileType typescript nmap <buffer> <C-]> <plug>(lsp-definition)
-    autocmd FileType typescript.tsx nmap <buffer> <C-]> <plug>(lsp-definition)
-augroup END
-
-" JavaScript
-augroup LspJavaScript
-    au!
-    if executable('typescript-language-server')
-        au User lsp_setup call lsp#register_server({
-                    \ 'name': 'javascript',
-                    \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-                    \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-                    \ 'whitelist': ['javascript', 'javascript.jsx']
-                    \ })
-    endif
-    autocmd FileType javascript nmap <buffer> <C-]> <plug>(lsp-definition)
-    autocmd FileType javascript.jsx nmap <buffer> <C-]> <plug>(lsp-definition)
-augroup END
+" setlocal omnifunc=lsp#complete
+nmap <buffer> <C-]> <plug>(lsp-definition)
+let g:lsp_diagnostics_echo_cursor = 1
 
 " End LSP
 " ============================================================================

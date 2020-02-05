@@ -3,7 +3,7 @@
 	email = 468745+miiton@users.noreply.github.com
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = /Applications/MacVim.app/Contents/bin/mvim -f
+	editor = vim
 [diff]
     tool = mvim
 [difftool]
@@ -25,6 +25,7 @@
     cp = cherry-pick -x
 [push]
     default = simple
+	followTags = true
 [commit]
 	template = ~/.commit_template
 [difftool "sourcetree"]
