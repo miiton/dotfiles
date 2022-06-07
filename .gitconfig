@@ -27,7 +27,7 @@
   default = simple
   followTags = true
 [commit]
-  template = ~/config/git/commit_template
+  template = ~/.config/git/commit_template
 [gpg]
   program = gpg2
 [secrets]
