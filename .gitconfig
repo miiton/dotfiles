@@ -1,54 +1,55 @@
 [user]
-	name = miiton
-	email = 468745+miiton@users.noreply.github.com
+  name = miiton
+  email = 468745+miiton@users.noreply.github.com
 [core]
-	editor = vim
+  editor = vim
 [diff]
-	tool = vscode
+  tool = vscode
 [difftool]
-    prompt = false
+  prompt = false
 [difftool "vscode"]
-    cmd = '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code' --diff \"$LOCAL\" \"$MERGED\"
+  cmd = '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code' --diff \"$LOCAL\" \"$MERGED\"
 [merge]
-    ff = false
-	tool = vscode
+  ff = false
+  tool = vscode
 [mergetool "vscode"]
-    cmd = '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code' \"$MERGED\"
-    trustExitCode = false
+  cmd = '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code' \"$MERGED\"
+  trustExitCode = false
 [color]
-    ui = auto
+  ui = auto
 [alias]
-    s = status --short --branch
-    l = log -n 15 --date=format:'%Y-%m-%d %H:%M' --graph --all --pretty='%x09%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%cn%C(reset) %s %C(auto)%d%>(20)%C(reset)' --date-order
-    ln = log -n 15 --date=format:'%Y-%m-%d %H:%M' --graph --all --pretty='%x09%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%cn%C(reset) %s %C(auto)%d%>(20)%C(reset)' --no-merges --date-order
-    cp = cherry-pick -x
-    clean-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|main'|xargs git branch -d; git fetch --prune; };f"
+  s = status --short --branch
+  l = log -n 15 --date=format:'%Y-%m-%d %H:%M' --graph --all --pretty='%x09%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%cn%C(reset) %s %C(auto)%d%>(20)%C(reset)' --date-order
+  ln = log -n 15 --date=format:'%Y-%m-%d %H:%M' --graph --all --pretty='%x09%ad %<(7)%C(magenta)%h%C(reset) %C(yellow)%cn%C(reset) %s %C(auto)%d%>(20)%C(reset)' --no-merges --date-order
+  cp = cherry-pick -x
+  clean-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|main'|xargs git branch -d; git fetch --prune; };f"
 [push]
-    default = simple
-	followTags = true
+  default = simple
+  followTags = true
 [commit]
-	template = ~/config/git/commit_template
+  template = ~/config/git/commit_template
 [gpg]
-	program = gpg2
+  program = gpg2
 [secrets]
-	providers = git secrets --aws-provider
-	patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
-	patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
-	patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
-	allowed = AKIAIOSFODNN7EXAMPLE
-	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-	patterns = private_key_id
-	allowed = thisIsExamplePrivateKeyId
-	patterns = private_key
-	allowed = -----BEGIN PRIVATE KEY-----\nMIIExamplePrivateKey\n-----END PRIVATE KEY-----
+  providers = git secrets --aws-provider
+  patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
+  patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+  patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+  allowed = AKIAIOSFODNN7EXAMPLE
+  allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  patterns = private_key_id
+  allowed = thisIsExamplePrivateKeyId
+  patterns = private_key
+  allowed = -----BEGIN PRIVATE KEY-----\nMIIExamplePrivateKey\n-----END PRIVATE KEY-----
 [url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
 [url "git@gitlab.com:"]
-	insteadOf = https://gitlab.com/
+  insteadOf = https://gitlab.com/
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
 [init]
-	defaultBranch = main
-	templatedir = ~/.config/git/templates/secrets
+  defaultBranch = main
+  templatedir = ~/.config/git/templates/secrets
+
